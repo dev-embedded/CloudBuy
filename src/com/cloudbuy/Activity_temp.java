@@ -19,7 +19,7 @@ public class Activity_temp extends Activity {
 
 		Button buttonBarcode = (Button) findViewById(R.id.button_barcode);
 
-		Button buttonOrderDetail = (Button) findViewById(R.id.button_order_detail);
+		Button buttonOrderDetails = (Button) findViewById(R.id.button_order_details);
 
 		Button buttonDeliveryMap = (Button) findViewById(R.id.button_delivery_map);
 		
@@ -75,15 +75,15 @@ public class Activity_temp extends Activity {
 		/*button listener for layout04:order detail for delivery 
 		 * to change "xxxxxx" to your activity name and delete every annotation symbols "//" in this method.
 		 */
-		buttonOrderDetail.setOnClickListener(new Button.OnClickListener() {
+		buttonOrderDetails.setOnClickListener(new Button.OnClickListener() {
 			public void onClick(View v) {
 				Intent intent = new Intent();
 
-				//intent.setClass(Activity_temp.this, xxxxxx.class);
+				intent.setClass(Activity_temp.this, OrderDetailsActivity.class);
 
-				//startActivity(intent);
+				startActivity(intent);
 
-				//Activity_temp.this.finish();
+				Activity_temp.this.finish();
 			}
 		});
 		
