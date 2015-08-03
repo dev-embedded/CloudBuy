@@ -1,9 +1,10 @@
 package com.cloudbuy;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 public class Activity_temp extends Activity {
 
@@ -11,24 +12,94 @@ public class Activity_temp extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_activity_temp);
-	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_temp, menu);
-		return true;
-	}
+		Button buttonLogin = (Button) findViewById(R.id.button_login);
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
+		Button buttonOrderList = (Button) findViewById(R.id.button_order_list);
+
+		Button buttonBarcode = (Button) findViewById(R.id.button_barcode);
+
+		Button buttonOrderDetail = (Button) findViewById(R.id.button_order_detail);
+
+		Button buttonDeliveryMap = (Button) findViewById(R.id.button_delivery_map);
+		
+		
+		
+		/*button listener for layout01:user login 
+		 * to change "xxxxxx" to your activity name and delete every annotation symbols "//" in this method.
+		 */
+
+		buttonLogin.setOnClickListener(new Button.OnClickListener() {
+			public void onClick(View v) {
+				Intent intent = new Intent();
+
+				//intent.setClass(Activity_temp.this, xxxxxx.class);
+
+				//startActivity(intent);
+
+				//Activity_temp.this.finish();
+			}
+		});
+
+		
+		/*button listener for layout02:order list for delivery 
+		 * to change "xxxxxx" to your activity name and delete every annotation symbols "//" in this method.
+		 */
+		buttonOrderList.setOnClickListener(new Button.OnClickListener() {
+			public void onClick(View v) {
+				Intent intent = new Intent();
+
+				//intent.setClass(Activity_temp.this, xxxxxx.class);
+
+				//startActivity(intent);
+
+				//Activity_temp.this.finish();
+			}
+		});
+
+		/*button listener for layout03:get order by barcode
+		 * to change "xxxxxx" to your activity name and delete every annotation symbols "//" in this method.
+		 */
+		buttonBarcode.setOnClickListener(new Button.OnClickListener() {
+			public void onClick(View v) {
+				Intent intent = new Intent();
+
+				//intent.setClass(Activity_temp.this, xxxxxx.class);
+
+				//startActivity(intent);
+
+				//Activity_temp.this.finish();
+			}
+		});
+		
+		/*button listener for layout04:order detail for delivery 
+		 * to change "xxxxxx" to your activity name and delete every annotation symbols "//" in this method.
+		 */
+		buttonOrderDetail.setOnClickListener(new Button.OnClickListener() {
+			public void onClick(View v) {
+				Intent intent = new Intent();
+
+				//intent.setClass(Activity_temp.this, xxxxxx.class);
+
+				//startActivity(intent);
+
+				//Activity_temp.this.finish();
+			}
+		});
+		
+		/*button listener for layout05:delivery map for order 
+		 * to change "xxxxxx" to your activity name and delete every annotation symbols "//" in this method.
+		 */
+		buttonDeliveryMap.setOnClickListener(new Button.OnClickListener() {
+			public void onClick(View v) {
+				Intent intent = new Intent();
+
+				//intent.setClass(Activity_temp.this, xxxxxx.class);
+
+				//startActivity(intent);
+
+				//Activity_temp.this.finish();
+			}
+		});
 	}
 }

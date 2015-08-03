@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">CloudBuy</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="hello_head">This is a layout list for CloudBuy App</string>
     <string name="action_settings">Settings</string>
 
 </resources>
