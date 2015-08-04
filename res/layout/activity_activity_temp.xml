@@ -1,16 +1,65 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.cloudbuy.Activity_temp" >
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+	<TextView  
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    android:text="@string/hello_head"
+    >
+    </TextView>
 
-    <TextView
-        android:layout_width="wrap_content"
+	<Button
+        android:id="@+id/button_login"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:layout_x="100px"
+        android:layout_y="80px"
+        android:text="Layout 01 : User Login" >
 
-</RelativeLayout>
+    </Button>
+	
+    <Button
+        android:id="@+id/button_order_list"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_x="100px"
+        android:layout_y="80px"
+        android:text="Layout 02 : Order List For Delivery" >
+
+    </Button>
+    
+    <Button
+        android:id="@+id/button_barcode"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_x="100px"
+        android:layout_y="80px"
+        android:text="Layout 03 : Get Order By Barcode" >
+
+    </Button>
+    
+    <Button
+        android:id="@+id/button_order_detail"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_x="100px"
+        android:layout_y="80px"
+        android:text="Layout 04 : Order Detail For Delivery" >
+
+    </Button>
+    
+    <Button
+        android:id="@+id/button_delivery_map"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_x="100px"
+        android:layout_y="80px"
+        android:text="Layout 03 : Delivery Map For Order" >
+
+    </Button>
+    
+    
+</LinearLayout>
