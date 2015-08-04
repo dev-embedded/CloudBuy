@@ -10,5 +10,6 @@
         <item>adminitrator</item>
         <item>deliveryman</item>
     </string-array>
+    <string name="google_map_button1">Exit map</string>
 
 </resources>

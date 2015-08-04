@@ -57,7 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_x="100px"
         android:layout_y="80px"
-        android:text="Layout 03 : Delivery Map For Order" >
+        android:text="Layout 05 : Delivery Map For Order" >
 
     </Button>
     
