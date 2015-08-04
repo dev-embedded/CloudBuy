@@ -24,7 +24,6 @@ public class Activity_temp extends Activity {
 		Button buttonDeliveryMap = (Button) findViewById(R.id.button_delivery_map);
 		
 		
-		
 		/*button listener for layout01:user login 
 		 * to change "xxxxxx" to your activity name and delete every annotation symbols "//" in this method.
 		 */
@@ -87,19 +86,24 @@ public class Activity_temp extends Activity {
 			}
 		});
 		
-		/*button listener for layout05:delivery map for order 
+		/*
+		 * button listenner for layout05:delivery map for order 
 		 * to change "xxxxxx" to your activity name and delete every annotation symbols "//" in this method.
 		 */
-		buttonDeliveryMap.setOnClickListener(new Button.OnClickListener() {
-			public void onClick(View v) {
+		buttonDeliveryMap.setOnClickListener(new Button.OnClickListener() 
+		{
+			public void onClick(View v) 
+			{
+				/* 新建一个Intent对象 */
 				Intent intent = new Intent();
-
-				//intent.setClass(Activity_temp.this, xxxxxx.class);
-
-				//startActivity(intent);
-
-				//Activity_temp.this.finish();
+				/* 指定intent要启动的类 */
+				intent.setClass(Activity_temp.this, GoogleMap.class);
+				/* 启动一个新的Activity */
+				startActivity(intent);
+				/* 关闭当前的Activity */
+				Activity_temp.this.finish();
 			}
-		});
+		}
+		);
 	}
 }
