@@ -23,6 +23,13 @@
             </intent-filter>
         </activity>
         <activity android:name="OrderDetailsActivity"></activity>
+        <activity
+            android:name=".GetOrderByBarcode" >
+        </activity>
+        <activity
+            android:name=".UserLogin" >
+        </activity>
+        <activity android:name="GoogleMap" ></activity>
     </application>
 
 </manifest>
