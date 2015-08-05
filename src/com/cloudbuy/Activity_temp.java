@@ -49,11 +49,11 @@ public class Activity_temp extends Activity {
 			public void onClick(View v) {
 				Intent intent = new Intent();
 
-				//intent.setClass(Activity_temp.this, xxxxxx.class);
+				intent.setClass(Activity_temp.this, DeliveryList.class);
 
-				//startActivity(intent);
+				startActivity(intent);
 
-				//Activity_temp.this.finish();
+				Activity_temp.this.finish();
 			}
 		});
 
