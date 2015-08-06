@@ -46,10 +46,14 @@ public class UserLogin extends Activity {
 	private Handler handler = new Handler(){
 		public void handleMessage(Message msg){
 			super.handleMessage(msg);
-			//userPasswordText.setText((CharSequence) msg.obj);
-			String result = (String) msg.obj;
-			if(result == "true"){
-				
+			userPasswordText.setText((CharSequence) msg.obj);
+			boolean result =  msg.getData().getBoolean("result");
+			System.out.println("result : " + result);
+			if(!result){
+				Intent intent = new Intent();
+				intent.setClass(UserLogin.this, DeliveryList.class);
+				startActivity(intent);
+				UserLogin.this.finish();
 			}
 		}
 	};

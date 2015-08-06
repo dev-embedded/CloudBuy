@@ -32,6 +32,11 @@
             android:name=".UserLogin" >
         </activity>
         <activity android:name="GoogleMap" ></activity>
+
+        <activity
+            android:name=".DeliveryList" >
+        </activity>
+
     </application>
 
 </manifest>
