@@ -2,9 +2,10 @@ package com.cloudbuy;
 
 import java.util.ArrayList;
 
-import domain.Order;
-import domain.OrderDetail;
-import domain.User;
+import com.domain.Order;
+import com.domain.OrderDetail;
+import com.domain.User;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
