@@ -1,5 +1,11 @@
 package com.cloudbuy;
 
+import java.util.ArrayList;
+
+import com.domain.Order;
+import com.domain.OrderDetail;
+import com.domain.User;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,6 +29,76 @@ public class Activity_temp extends Activity {
 
 		Button buttonDeliveryMap = (Button) findViewById(R.id.button_delivery_map);
 		
+		//create two users : user1 and user2
+		ArrayList<User> userList = new ArrayList<User>();
+		
+		//the first user
+		User user1 = new User(1);
+		user1.setAddress("6177 sherbrook ouest montreal");
+		user1.setPostalCode("H4B 1L9");
+		
+		//the second user
+		User user2 = new User(1);
+		user2.setAddress("3205 rue de verdun");
+		user2.setPostalCode("H4G 1j9");
+		
+		userList.add(user1);
+		userList.add(user2);
+		
+		
+		
+		//create 2 order lists : orderList1 and orderList2
+		ArrayList<Order> orderList = new ArrayList<Order>();
+		
+		//begin of the first order and order detail 
+		
+		Order order1 = new Order();
+		
+		order1.setOrderNo(1);
+		order1.setUserNo(1);
+		order1.setOrderSum(70.99);
+		order1.setFlagPay("0");  //not pay
+		order1.setFlagDel("1");  //not delete
+		
+		OrderDetail orderDetail11 = new OrderDetail(order1.getOrderNo());
+		orderDetail11.setProductNo(1);
+		orderDetail11.setQuantity(5);
+		
+		OrderDetail orderDetail12 = new OrderDetail(order1.getOrderNo());
+		orderDetail12.setProductNo(2);
+		orderDetail12.setQuantity(10);
+		
+		ArrayList <OrderDetail> orderDetailList1 = new ArrayList <OrderDetail>();
+		orderDetailList1.add(orderDetail11);
+		orderDetailList1.add(orderDetail12);
+		
+		order1.setOrderDetail(orderDetailList1);
+		//end of the first order and order detail
+		
+		//begin of the second order and order detail 
+		
+		Order order2 = new Order();
+		
+		order2.setOrderNo(2);
+		order2.setUserNo(2);
+		order2.setOrderSum(36.99);
+		order2.setFlagPay("0");  //not pay
+		order2.setFlagDel("1");  //not delete
+		
+		OrderDetail orderDetail21 = new OrderDetail(order1.getOrderNo());
+		orderDetail11.setProductNo(3);
+		orderDetail11.setQuantity(2);
+		
+		OrderDetail orderDetail22 = new OrderDetail(order1.getOrderNo());
+		orderDetail22.setProductNo(4);
+		orderDetail22.setQuantity(20);
+		
+		ArrayList <OrderDetail> orderDetailList2 = new ArrayList <OrderDetail>();
+		orderDetailList1.add(orderDetail21);
+		orderDetailList1.add(orderDetail22);
+		
+		order1.setOrderDetail(orderDetailList2);
+		//end of the second order and order detail
 		
 		/*button listener for layout01:user login 
 		 * to change "xxxxxx" to your activity name and delete every annotation symbols "//" in this method.
