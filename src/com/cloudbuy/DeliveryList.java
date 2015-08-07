@@ -1,6 +1,7 @@
 
 package com.cloudbuy;
 
+import java.util.ArrayList;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+
 
 public class DeliveryList extends Activity {
 	
@@ -25,7 +27,9 @@ public class DeliveryList extends Activity {
 
 		Button buttonReturn = (Button) findViewById(R.id.button_return);
 
-		//displayListView();
+		
+		displayListView();
+		checkButtonClick();
 			
 		
 		buttonReturn.setOnClickListener(new Button.OnClickListener() {
@@ -39,6 +43,26 @@ public class DeliveryList extends Activity {
 				DeliveryList.this.finish();
 		}
 	});
+		
+		buttonLogout.setOnClickListener(new Button.OnClickListener() {
+			public void onClick(View v) {
+				Intent intent = new Intent();
+
+				intent.setClass(DeliveryList.this, Activity_temp.class);
+
+				startActivity(intent);
+
+				DeliveryList.this.finish();
+		}
+	});
+	}
+	
+	private void displayListView(){
+		
+	}
+	
+	private void checkButtonClick(){
+		
 	}
 }
 
