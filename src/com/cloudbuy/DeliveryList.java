@@ -1,6 +1,7 @@
 
 package com.cloudbuy;
 
+import java.util.ArrayList;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,9 +24,7 @@ public class DeliveryList extends Activity {
 		Button buttonGetBarcode = (Button) findViewById(R.id.button_get_barcode);
 
 		Button buttonReturn = (Button) findViewById(R.id.button_return);
-
-			
-		
+					
 		buttonReturn.setOnClickListener(new Button.OnClickListener() {
 			public void onClick(View v) {
 				Intent intent = new Intent();
@@ -37,5 +36,9 @@ public class DeliveryList extends Activity {
 				DeliveryList.this.finish();
 		}
 	});
+	}
+	
+	private void displayListView(){
+		//
 	}
 }
