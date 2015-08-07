@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 
 public class DeliveryList extends Activity {
 	
@@ -24,6 +25,7 @@ public class DeliveryList extends Activity {
 
 		Button buttonReturn = (Button) findViewById(R.id.button_return);
 
+		//displayListView();
 			
 		
 		buttonReturn.setOnClickListener(new Button.OnClickListener() {
@@ -39,3 +41,4 @@ public class DeliveryList extends Activity {
 	});
 	}
 }
+
