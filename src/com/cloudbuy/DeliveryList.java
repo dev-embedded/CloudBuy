@@ -14,7 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.ArrayAdapter;
+import java.io.Serializable;
 
 
 public class DeliveryList extends Activity {
@@ -78,6 +78,7 @@ public class DeliveryList extends Activity {
 		}
 	});
 	}
+	
 	
 	
 		
