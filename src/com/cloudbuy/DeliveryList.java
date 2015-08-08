@@ -2,6 +2,7 @@
 package com.cloudbuy;
 
 import java.util.ArrayList;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +11,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.ArrayAdapter;
 
 
 public class DeliveryList extends Activity {
@@ -18,6 +21,7 @@ public class DeliveryList extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.delivery_list);
+		ListView listView;
 
 		Button buttonLogout = (Button) findViewById(R.id.button_logout);
 
@@ -28,9 +32,8 @@ public class DeliveryList extends Activity {
 		Button buttonReturn = (Button) findViewById(R.id.button_return);
 
 
+		//listView = (ListView) findViewById(R.id.listview1); 
 		
-		displayListView();
-		checkButtonClick();
 			
 		
 
@@ -59,19 +62,21 @@ public class DeliveryList extends Activity {
 				DeliveryList.this.finish();
 		}
 	});
+		
+		buttonGetBarcode.setOnClickListener(new Button.OnClickListener() {
+			public void onClick(View v) {
+				Intent intent = new Intent();
+
+				intent.setClass(DeliveryList.this, GetOrderByBarcode.class);
+
+				startActivity(intent);
+
+				DeliveryList.this.finish();
+		}
+	});
 	}
 	
-	private void displayListView(){
-
-		
-	}
 	
-	private void checkButtonClick(){
-		
-	}
-
-
-
 		
 	}
 
