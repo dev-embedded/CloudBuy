@@ -27,11 +27,15 @@ public class DeliveryList extends Activity {
 
 		Button buttonReturn = (Button) findViewById(R.id.button_return);
 
+
 		
 		displayListView();
 		checkButtonClick();
 			
 		
+
+					
+
 		buttonReturn.setOnClickListener(new Button.OnClickListener() {
 			public void onClick(View v) {
 				Intent intent = new Intent();
@@ -58,11 +62,16 @@ public class DeliveryList extends Activity {
 	}
 	
 	private void displayListView(){
+
 		
 	}
 	
 	private void checkButtonClick(){
 		
 	}
-}
+
+
+
+		
+	}
 
