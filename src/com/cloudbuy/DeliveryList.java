@@ -22,7 +22,14 @@ public class DeliveryList extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.delivery_list);
 		ListView listView;
+		
+		listView = (ListView) findViewById(R.id.listview); 
+		
+		Bundle bundle = this.getIntent().getExtras();
+		
+		String name = bundle.getString("Name");
 
+		
 		Button buttonLogout = (Button) findViewById(R.id.button_logout);
 
 		Button buttonSelect = (Button) findViewById(R.id.button_select);
@@ -32,12 +39,7 @@ public class DeliveryList extends Activity {
 		Button buttonReturn = (Button) findViewById(R.id.button_return);
 
 
-		//listView = (ListView) findViewById(R.id.listview1); 
-		
-			
-		
-
-					
+						
 
 		buttonReturn.setOnClickListener(new Button.OnClickListener() {
 			public void onClick(View v) {
