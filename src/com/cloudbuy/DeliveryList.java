@@ -3,6 +3,8 @@ package com.cloudbuy;
 
 import java.util.ArrayList;
 
+import com.domain.Order;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,8 +29,7 @@ public class DeliveryList extends Activity {
 		
 		Bundle bundle = this.getIntent().getExtras();
 		
-		String name = bundle.getString("Name");
-
+		ArrayList<Order> orderList = (ArrayList<Order>)bundle.getSerializable ("orderList");
 		
 		Button buttonLogout = (Button) findViewById(R.id.button_logout);
 

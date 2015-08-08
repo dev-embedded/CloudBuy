@@ -48,7 +48,7 @@ public class Activity_temp extends Activity {
 		
 		
 		//create 2 order lists : orderList1 and orderList2
-		ArrayList<Order> orderList = new ArrayList<Order>();
+		final ArrayList<Order> orderList = new ArrayList<Order>();
 		
 		//begin of the first order and order detail 
 		
@@ -126,7 +126,7 @@ public class Activity_temp extends Activity {
 				
 				Bundle bundle = new Bundle() ;
 				
-				bundle.putSerializable ("1", order1.getOrderNo());  
+				bundle.putSerializable ("orderList", orderList);  
 				//如何bundle数组
 							
 				intent.putExtras(bundle);
