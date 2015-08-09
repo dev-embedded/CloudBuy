@@ -1,6 +1,9 @@
 package com.domain;
 
-public class User {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class User implements Parcelable {
 
     private int userNo;
     private String lastName;
@@ -27,10 +30,22 @@ public class User {
     public User() {
     }
 
-    public int getNoClient() {
-        return userNo;
+    public User(int userNo, String lastName, String firstName, String password, int age, String sex, String address, String postalCode, String telephone, String email, String flagUser, String flagDel){
+    	this.userNo = userNo;
+    	this.lastName = lastName;
+    	this.firstName = firstName;
+    	this.password = password;
+    	this.age = age;
+    	this.sex = sex;
+    	this.address = address;
+    	this.postalCode = postalCode;
+    	this.telephone = telephone;
+    	this.email = email;
+    	this.flagUser = flagUser;
+    	this.flagDel = flagDel;
+    	
     }
-
+    
     public int getUserNo() {
         return userNo;
     }
@@ -127,6 +142,51 @@ public class User {
 		this.postalCode = postCode;
 	}
 
-    
+	@Override public int describeContents() {  
+
+		return 0;  
+
+		}  
+
+	@Override  
+	public void writeToParcel(Parcel dest, int flags) {  
+		dest.writeInt(userNo); 
+		dest.writeString(lastName); 
+		dest.writeString(firstName);
+		dest.writeString(password);
+		dest.writeInt(age); 
+		dest.writeString(sex);
+		dest.writeString(address); 
+		dest.writeString(postalCode); 
+		dest.writeString(telephone); 
+		dest.writeString(email); 
+		dest.writeString(flagUser); 
+		dest.writeString(flagDel); 
+
+
+	}  
+	
+	public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {  
+
+		@Override  
+
+		public User createFromParcel(Parcel source) {  
+
+		return new User(source.readInt(), source.readString(), source.readString(), source.readString(), source.readInt(), source.readString(), source.readString(), source.readString(), source.readString(), source.readString(), source.readString(), source.readString());  
+
+		}  
+
+		@Override  
+
+		public User[] newArray(int size) {  
+
+
+		return new User[size];  
+
+		}  
+
+		 
+
+		};  
 
 }

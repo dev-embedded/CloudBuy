@@ -41,7 +41,7 @@ public class UserLogin extends Activity {
 	private Button buttonCancel = null;
 	private TextView mResult = null;
 	
-	private String baseURL = "http://192.168.1.106:8080/CloudBuyPractice/AppLogin";
+	private String baseURL = "http://192.168.208.1:8080/CloudBuyPractice/AppLogin";
 	
 	@SuppressLint("HandlerLeak")
 	private Handler handler = new Handler(){
