@@ -2,9 +2,7 @@
 package com.cloudbuy;
 
 import java.util.ArrayList;
-
 import com.domain.Order;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +13,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import java.io.Serializable;
+import android.widget.ArrayAdapter;
 
 
 public class DeliveryList extends Activity {
@@ -23,13 +22,16 @@ public class DeliveryList extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.delivery_list);
+		final ArrayAdapter<Order> aa;
+		aa =  new ArrayAdapter<Order>(this, 
+				R.layout.activity_activity_temp, getData());
 		ListView listView;
-		
 		listView = (ListView) findViewById(R.id.listview); 
+		listView.setAdapter(aa);
 		
 		Bundle bundle = this.getIntent().getExtras();
 		
-		ArrayList<Order> orderList = (ArrayList<Order>)bundle.getSerializable ("orderList");
+		//ArrayList<Order> orderList = (ArrayList<Order>)bundle.getSerializable ("orderList");
 		
 		Button buttonLogout = (Button) findViewById(R.id.button_logout);
 
@@ -80,7 +82,10 @@ public class DeliveryList extends Activity {
 	}
 	
 	
-	
+	private ArrayList<Order> getData(){
+		ArrayList<Order> arrayList =  new ArrayList<Order>();
+		return arrayList;
+	}
 		
 	}
 
