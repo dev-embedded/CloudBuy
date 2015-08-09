@@ -42,12 +42,12 @@
     </Button>
     
     <Button
-        android:id="@+id/button_order_detail"
+        android:id="@+id/button_order_details"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_x="100px"
         android:layout_y="80px"
-        android:text="Layout 04 : Order Detail For Delivery" >
+        android:text="Layout 04 : Order Details For Delivery" >
 
     </Button>
     
