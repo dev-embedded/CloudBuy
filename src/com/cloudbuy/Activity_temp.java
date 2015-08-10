@@ -20,34 +20,26 @@ public class Activity_temp extends Activity {
 		setContentView(R.layout.activity_activity_temp);
 
 		Button buttonLogin = (Button) findViewById(R.id.button_login);
-
 		Button buttonOrderList = (Button) findViewById(R.id.button_order_list);
-
 		Button buttonBarcode = (Button) findViewById(R.id.button_barcode);
-
 		Button buttonOrderDetails = (Button) findViewById(R.id.button_order_details);
-
 		Button buttonDeliveryMap = (Button) findViewById(R.id.button_delivery_map);
 		
-		//create two users : user1 and user2
-		ArrayList<User> userList = new ArrayList<User>();
-		
-		//the first user
+		// Create two users : user1 and user2
+		ArrayList<User> userList = new ArrayList<User>();		
+		// the first user
 		User user1 = new User(1);
 		user1.setAddress("6177 sherbrook ouest montreal");
-		user1.setPostalCode("H4B 1L9");
-		
-		//the second user
+		user1.setPostalCode("H4B 1L9");		
+		// the second user
 		User user2 = new User(1);
 		user2.setAddress("3205 rue de verdun");
 		user2.setPostalCode("H4G 1j9");
 		
 		userList.add(user1);
-		userList.add(user2);
+		userList.add(user2);	
 		
-		
-		
-		//create 2 order lists : orderList1 and orderList2
+		// Create 2 order lists : orderList1 and orderList2
 		final ArrayList<Order> orderList = new ArrayList<Order>();
 		
 		//begin of the first order and order detail 
