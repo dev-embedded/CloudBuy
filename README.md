@@ -1,3 +1,1 @@
-# CloudBuy
-Android Application for Cloud Buy
-CloudBuy is a Android Application.
+# Android Application Project - CloudBuy 20150808.
