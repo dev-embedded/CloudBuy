@@ -1,1 +1,2 @@
-# Android Application Project - CloudBuy 20150808.
+
+# CloudBuy App - Android Application Project 20150811.

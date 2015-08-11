@@ -1,17 +1,18 @@
-# built application files
+
+# built application files 20150811
 *.apk
-# *.ap_
+*.ap_
 
 # File for the dex VM
-# *.dex
+*.dex
 
 # Java class files
 *.jar
-# .class
+*.class
 
 # Generated files
-# bin/
-# gen/
+bin/
+gen/
 
 # Local configuration file (sdk path, etc)
 # local.properties
