@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    >
+    android:layout_height="fill_parent" >
+    
 	<TextView  
     android:layout_width="fill_parent" 
     android:layout_height="wrap_content" 
-    android:text="@string/hello_head"
-    >
+    android:text="@string/hello_head" >
     </TextView>
 
 	<Button
@@ -18,7 +18,6 @@
         android:layout_x="100px"
         android:layout_y="80px"
         android:text="Layout 01 : User Login" >
-
     </Button>
 	
     <Button
@@ -28,7 +27,6 @@
         android:layout_x="100px"
         android:layout_y="80px"
         android:text="Layout 02 : Order List For Delivery" >
-
     </Button>
     
     <Button
@@ -38,7 +36,6 @@
         android:layout_x="100px"
         android:layout_y="80px"
         android:text="Layout 03 : Get Order By Barcode" >
-
     </Button>
     
     <Button
@@ -48,7 +45,6 @@
         android:layout_x="100px"
         android:layout_y="80px"
         android:text="Layout 04 : Order Details For Delivery" >
-
     </Button>
     
     <Button
@@ -57,9 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_x="100px"
         android:layout_y="80px"
-        android:text="Layout 05 : Delivery Map For Order" >
-
-    </Button>
-    
+        android:text="Layout 05 : Delivery Google Map" >
+    </Button>    
     
 </LinearLayout>

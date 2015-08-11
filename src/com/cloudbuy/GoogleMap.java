@@ -3,35 +3,52 @@ package com.cloudbuy;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Button;
 
-public class GoogleMap extends Activity
-{
-	public void onCreate(Bundle savedInstanceState)
+public class GoogleMap extends Activity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        System.out.println("Hello Google Map");
+        setContentView(R.layout.google_map);
+    }
+    
+    /*创建menu*/
+	public boolean onCreateOptionsMenu(Menu menu)
 	{
-		super.onCreate(savedInstanceState);
-		/* 设置显示google_map.xml布局 */
-		setContentView(R.layout.google_map);
-		/* findViewById(R.id.google_map_button1)取得布局google_map.xml中的google_map_button1 */
-		Button button = (Button) findViewById(R.id.google_map_button1);
-		/* 监听button的事件信�? */
-		button.setOnClickListener(new Button.OnClickListener() {
-			public void onClick(View v)
-			{
-				/* 新建�?个Intent对象 */
-				//Intent intent = new Intent();
-				/* 指定intent要启动的�? */
-				//intent.setClass(GoogleMap.this, AddressEnter.class);
-				/* 启动�?个新的Activity */
-				//startActivity(intent);
+		MenuInflater inflater = getMenuInflater();
+		//设置menu界面为res/menu/activity_menu.xml
+		inflater.inflate(R.menu.activity_temp, menu);
+		return true;
+	}
+
+	/*处理菜单事件*/
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		//得到当前选中的MenuItem的ID,
+		int item_id = item.getItemId();
+
+		switch (item_id)
+		{
+			case R.id.go:
+				/* 新建一个Intent对象 */
+				Intent intent = new Intent();
+				/* 指定intent要启动的类 */
+				intent.setClass(GoogleMap.this, GetOrderByBarcode.class);
+				/* 启动一个新的Activity */
+				startActivity(intent);
 				/* 关闭当前的Activity */
 				GoogleMap.this.finish();
-			}
-		});
-	
-	}
+				break;
+			case R.id.exit:
+				GoogleMap.this.finish();
+				break;
+		}
+		return true;
+	}    
 }
+
 
