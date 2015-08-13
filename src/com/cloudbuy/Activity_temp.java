@@ -13,6 +13,9 @@ import android.view.View;
 import android.widget.Button;
 
 public class Activity_temp extends Activity {
+	
+	private ArrayList<Order> orderList;
+	private ArrayList<User> userList;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +33,7 @@ public class Activity_temp extends Activity {
 		Button buttonDeliveryMap = (Button) findViewById(R.id.button_delivery_map);
 		
 		//create two users : user1 and user2
-		ArrayList<User> userList = new ArrayList<User>();
+		userList = new ArrayList<User>();
 		
 		//the first user
 		User user1 = new User(1);
@@ -38,7 +41,7 @@ public class Activity_temp extends Activity {
 		user1.setPostalCode("H4B 1L9");
 		
 		//the second user
-		User user2 = new User(1);
+		User user2 = new User(2);
 		user2.setAddress("3205 rue de verdun");
 		user2.setPostalCode("H4G 1j9");
 		
@@ -48,7 +51,8 @@ public class Activity_temp extends Activity {
 		
 		
 		//create 2 order lists : orderList1 and orderList2
-		final ArrayList<Order> orderList = new ArrayList<Order>();
+		orderList = new ArrayList<Order>();
+
 		
 		//begin of the first order and order detail 
 		
@@ -100,6 +104,15 @@ public class Activity_temp extends Activity {
 		order1.setOrderDetail(orderDetailList2);
 		//end of the second order and order detail
 		
+		System.out.println("-----user list-----");
+		System.out.println("userNo" + "user Address");
+		System.out.println(userList.get(0).getUserNo() + "          " + userList.get(0).getAddress());
+		System.out.println(userList.get(1).getUserNo() + "          " + userList.get(1).getAddress());
+		
+		System.out.println("-----order list-----");
+		System.out.println(userList.get(0).getUserNo() + "          " + userList.get(0).getAddress());
+		
+		
 		/*button listener for layout01:user login 
 		 * to change "xxxxxx" to your activity name and delete every annotation symbols "//" in this method.
 		 */
@@ -146,6 +159,9 @@ public class Activity_temp extends Activity {
 			public void onClick(View v) {
 				Intent intent = new Intent();
 
+				//intent.putParcelableArrayListExtra("com.cloudbuy.domain.order", orderList);
+				intent.putParcelableArrayListExtra("com.cloudbuy.domain.user", userList);
+				
 				intent.setClass(Activity_temp.this, GetOrderByBarcode.class);
 
 				startActivity(intent);
