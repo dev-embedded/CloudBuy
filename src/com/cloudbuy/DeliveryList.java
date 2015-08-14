@@ -1,4 +1,3 @@
-
 package com.cloudbuy;
 
 import java.util.ArrayList;
@@ -12,9 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import java.io.Serializable;
 import android.widget.ArrayAdapter;
-
 
 public class DeliveryList extends Activity {
 	
@@ -22,14 +19,28 @@ public class DeliveryList extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.delivery_list);
-		final ArrayAdapter<Order> aa;
-		aa =  new ArrayAdapter<Order>(this, 
-				R.layout.activity_activity_temp, getData());
-		ListView listView;
-		listView = (ListView) findViewById(R.id.listview); 
-		listView.setAdapter(aa);
 		
-		Bundle bundle = this.getIntent().getExtras();
+		
+		//create ArrayList
+		ArrayList<Order> orderList = new ArrayList<Order>();
+		Intent intent = getIntent();
+		
+		orderList = intent.getParcelableArrayListExtra("com.cloudbuy.domain.order");
+		
+		//获取xml布局中的控件
+		//ListView listView = (ListView) findViewById(R.id.ListView); 
+		//listView.setText
+		
+		//create ArrayAdapter
+		final ArrayAdapter<Order> arrayAdapter = new ArrayAdapter<Order>(this, 
+					android.R.layout.simple_expandable_list_item_1,orderList);
+		
+		//bundle ListView to adapter
+		listView.setAdapter(arrayAdapter);
+		
+		//setContentView(listView);
+		
+		//Bundle bundle = this.getIntent().getExtras();
 		
 		//ArrayList<Order> orderList = (ArrayList<Order>)bundle.getSerializable ("orderList");
 		
@@ -82,10 +93,10 @@ public class DeliveryList extends Activity {
 	}
 	
 	
-	private ArrayList<Order> getData(){
+	/*private ArrayList<Order> getData(){
 		ArrayList<Order> arrayList =  new ArrayList<Order>();
 		return arrayList;
-	}
+	}*/
 		
 	}
 

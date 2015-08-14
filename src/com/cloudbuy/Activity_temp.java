@@ -135,14 +135,9 @@ public class Activity_temp extends Activity {
 		 */
 		buttonOrderList.setOnClickListener(new Button.OnClickListener() {
 			public void onClick(View v) {
-				Intent intent = new Intent(Activity_temp.this, DeliveryList.class);
-				
-				Bundle bundle = new Bundle() ;
-				
-				bundle.putSerializable ("orderList", orderList);  
-				//如何bundle数组
-							
-				intent.putExtras(bundle);
+				Intent intent = new Intent();
+														
+				intent.putParcelableArrayListExtra("com.cloudbuy.domain.order", orderList);
 				
 				intent.setClass(Activity_temp.this, DeliveryList.class);
 
