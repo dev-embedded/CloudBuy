@@ -25,15 +25,39 @@
         android:text="logout" />
     </RelativeLayout> 
     
-    <RelativeLayout  
-        android:layout_width="wrap_content"   
-        android:layout_height="wrap_content" android:gravity="right"   
+    <LinearLayout  
+        android:layout_width="fill_parent"   
+        android:layout_height="wrap_content" 
+        android:orientation="horizontal"
+        android:gravity="center"   
         android:padding="10dp">
+    
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="user no"
+        android:textSize="20sp" 
+        android:textStyle="bold"/>
+        
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="postal code"
+        android:textSize="20sp" 
+        android:textStyle="bold"/>
+                
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="address"
+        android:textSize="20sp" 
+        android:textStyle="bold"/>
                
+    </LinearLayout>
        <ListView
            android:id="@+id/listView1"
-           android:layout_width="fill_parent"
-           android:layout_height="44dp" >
+           android:layout_width="wrap_content"
+           android:layout_height="200dp" >
 
       </ListView>
         
@@ -74,5 +98,5 @@
         
     </RelativeLayout>
 
-    </RelativeLayout>
+
 </LinearLayout>
