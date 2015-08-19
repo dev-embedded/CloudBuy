@@ -58,7 +58,7 @@ public class OrderDetailsActivity extends Activity {
 		buttonOrderMap.setOnClickListener(new Button.OnClickListener() {
 			public void onClick(View v) {
 				Intent intent = new Intent();
-				intent.setClass(OrderDetailsActivity.this, GoogleMap.class);
+				intent.setClass(OrderDetailsActivity.this, GoogleMapApp.class);
 				startActivity(intent);
 				OrderDetailsActivity.this.finish();
 			}
