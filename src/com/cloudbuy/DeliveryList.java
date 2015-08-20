@@ -28,11 +28,12 @@ public class DeliveryList extends Activity {
 		orderList = intent.getParcelableArrayListExtra("com.cloudbuy.domain.order");
 		
 		//获取xml布局中的控件
-		//ListView listView = (ListView) findViewById(R.id.ListView); 
+		ListView listView = (ListView) findViewById(R.id.listview); 
 		//listView.setText
 		
 		//create ArrayAdapter
-		final ArrayAdapter<Order> arrayAdapter = new ArrayAdapter<Order>(this, 
+		final ArrayAdapter<Order> arrayAdapter;
+		arrayAdapter = new ArrayAdapter<Order>(this, 
 					android.R.layout.simple_expandable_list_item_1,orderList);
 		
 		//bundle ListView to adapter
@@ -42,8 +43,7 @@ public class DeliveryList extends Activity {
 		
 		//Bundle bundle = this.getIntent().getExtras();
 		
-		//ArrayList<Order> orderList = (ArrayList<Order>)bundle.getSerializable ("orderList");
-		
+				
 		Button buttonLogout = (Button) findViewById(R.id.button_logout);
 
 		Button buttonSelect = (Button) findViewById(R.id.button_select);
