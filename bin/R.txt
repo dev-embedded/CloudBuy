@@ -201,7 +201,7 @@ int integer google_play_services_version 0x7f090000
 int layout activity_activity_temp 0x7f030000
 int layout delivery_list 0x7f030001
 int layout get_order_by_barcode 0x7f030002
-int layout google_map_app 0x7f030003
+int layout google_map_bbe 0x7f030003
 int layout order_details 0x7f030004
 int layout user_login 0x7f030005
 int menu activity_temp 0x7f0c0000

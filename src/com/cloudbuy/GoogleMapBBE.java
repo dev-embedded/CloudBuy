@@ -1,9 +1,9 @@
 package com.cloudbuy;
 
-import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -15,7 +15,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-public class GoogleMapApp extends FragmentActivity {
+public class GoogleMapBBE extends FragmentActivity implements OnMapReadyCallback {
 	
 	private GoogleMap map = null;
 	static final LatLng MTL = new LatLng(45.5086699, -73.5539925);
@@ -24,12 +24,14 @@ public class GoogleMapApp extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         System.out.println("Hello Google Map");
-        setContentView(R.layout.google_map_app);              
+        setContentView(R.layout.google_map_bbe);
         
-        GooglePlayServicesUtil.isGooglePlayServicesAvailable(getApplicationContext());
-        
-        map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
-        
+        MapFragment mapFragment = (MapFragment) getFragmentManager()
+        	    .findFragmentById(R.id.map);      
+        mapFragment.getMapAsync(this);        
+
+        map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();        
+              
         Marker mk= map.addMarker(new MarkerOptions().position(MTL).title("Montreal").snippet("BBE Team"));
         
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(MTL, 12));
@@ -56,17 +58,23 @@ public class GoogleMapApp extends FragmentActivity {
 				/* 新建一个Intent对象 */
 				Intent intent = new Intent();
 				/* 指定intent要启动的类 */
-				intent.setClass(GoogleMapApp.this, GetOrderByBarcode.class);
+				intent.setClass(GoogleMapBBE.this, GetOrderByBarcode.class);
 				/* 启动一个新的Activity */
 				startActivity(intent);
 				/* 关闭当前的Activity */
-				GoogleMapApp.this.finish();
+				GoogleMapBBE.this.finish();
 				break;
 			case R.id.exit:
-				GoogleMapApp.this.finish();
+				GoogleMapBBE.this.finish();
 				break;
 		}
 		return true;
+	}
+
+	@Override
+	public void onMapReady(GoogleMap arg0) {
+		// TODO Auto-generated method stub
+		
 	}    
 }
 

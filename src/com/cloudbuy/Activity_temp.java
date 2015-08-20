@@ -172,7 +172,7 @@ public class Activity_temp extends Activity {
 				/* 新建一个Intent对象 */
 				Intent intent = new Intent();
 				/* 指定intent要启动的类 */
-				intent.setClass(Activity_temp.this, GoogleMapApp.class);
+				intent.setClass(Activity_temp.this, GoogleMapBBE.class);
 				/* 启动一个新的Activity */
 				startActivity(intent);
 				/* 关闭当前的Activity */
