@@ -1,7 +1,10 @@
 package com.cloudbuy;
 
 import java.util.ArrayList;
-import com.domain.Order;
+import java.util.HashMap;
+import java.util.List;
+
+import com.domain.User;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,8 +13,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.ArrayAdapter;
+import android.widget.SimpleAdapter;
+
 
 public class DeliveryList extends Activity {
 	
@@ -19,30 +22,6 @@ public class DeliveryList extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.delivery_list);
-		
-		
-		//create ArrayList
-		ArrayList<Order> orderList = new ArrayList<Order>();
-		Intent intent = getIntent();
-		
-		orderList = intent.getParcelableArrayListExtra("com.cloudbuy.domain.order");
-		
-		//获取xml布局中的控件
-		ListView listView = (ListView) findViewById(R.id.listview); 
-		//listView.setText
-		
-		//create ArrayAdapter
-		final ArrayAdapter<Order> arrayAdapter;
-		arrayAdapter = new ArrayAdapter<Order>(this, 
-					android.R.layout.simple_expandable_list_item_1,orderList);
-		
-		//bundle ListView to adapter
-		listView.setAdapter(arrayAdapter);
-		
-		//setContentView(listView);
-		
-		//Bundle bundle = this.getIntent().getExtras();
-		
 				
 		Button buttonLogout = (Button) findViewById(R.id.button_logout);
 
@@ -52,6 +31,30 @@ public class DeliveryList extends Activity {
 
 		Button buttonReturn = (Button) findViewById(R.id.button_return);
 
+		ArrayList<User> userList = new ArrayList<User>();
+		
+		Intent intent = getIntent();
+		
+		//orderList = intent.getParcelableArrayListExtra("com.cloudbuy.domain.order");
+		userList = intent.getParcelableArrayListExtra("com.cloudbuy.domain.user");
+		
+		List<HashMap<String, Object>> data = new ArrayList<HashMap<String, Object>>();
+		
+		for(User user : userList){
+			HashMap<String, Object> item = new HashMap<String, Object>();
+			item.put("id", user.getUserNo());
+			item.put("postalcode", user.getPostalCode());
+			item.put("address", user.getAddress());
+			data.add(item);
+		}
+		
+		SimpleAdapter adapter = new SimpleAdapter(this, data, R.layout.delivery_list_item,
+				new String[]{"id", "postalcode", "address"},
+				new int[]{R.id.listViewOrderNo, R.id.listViewOrderPay, R.id.listViewOrderAddress});
+		
+		ListView listview = (ListView) this.findViewById(R.id.listView1);
+		
+		listview.setAdapter(adapter);
 
 						
 
@@ -93,10 +96,5 @@ public class DeliveryList extends Activity {
 	}
 	
 	
-	/*private ArrayList<Order> getData(){
-		ArrayList<Order> arrayList =  new ArrayList<Order>();
-		return arrayList;
-	}*/
-		
-	}
+}
 
