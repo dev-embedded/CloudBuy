@@ -25,9 +25,6 @@
         android:text="logout" />
     </RelativeLayout> 
     
-<<<<<<< HEAD
-    
-=======
     <LinearLayout  
         android:layout_width="fill_parent"   
         android:layout_height="wrap_content" 
@@ -57,19 +54,13 @@
         android:textStyle="bold"/>
                
     </LinearLayout>
->>>>>>> refs/heads/dev_st
+
        <ListView
-<<<<<<< HEAD
-           android:id="@+id/listview"
-           android:layout_width="fill_parent"
-           android:layout_height="44dp" >
-           
-=======
+
            android:id="@+id/listView1"
            android:layout_width="wrap_content"
            android:layout_height="200dp" >
 
->>>>>>> refs/heads/dev_st
       </ListView>
         
        
@@ -109,9 +100,5 @@
         
     </RelativeLayout>
 
-<<<<<<< HEAD
-    
-=======
 
->>>>>>> refs/heads/dev_st
 </LinearLayout>
