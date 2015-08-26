@@ -18,93 +18,59 @@ import org.apache.http.util.EntityUtils;
 
 import android.util.Log;
 
+public class ApacheHttpClient {
 
-/**
- *@author coolszy
- *@date 2011-5-29
- *@blog http://blog.csdn.net/coolszy
- */
-
-/**
- * ��ͬ����ʽ����Http����
- */
-public class ApacheHttpClient
-{
-
-	/**
-	 * ��Get��ʽ��������
-	 * @param url ����·��
-	 * @return
-	 */
-	public String httpGet(String url)
-	{
+	public String httpGet(String url) {
 		String response = null;
 		HttpClient httpclient = new DefaultHttpClient();
-		//����HttpGet����
+
 		HttpGet httpGet = new HttpGet(url);
 		HttpResponse httpResponse;
-		try
-		{
-			//ʹ��execute��������HTTP GET���󣬲�����HttpResponse����
+		try {
+
 			httpResponse = httpclient.execute(httpGet);
 			int statusCode = httpResponse.getStatusLine().getStatusCode();
 			System.out.println("statusCode return : " + statusCode);
-			if(statusCode==HttpStatus.SC_OK)
-			{
-				//��÷��ؽ��
+			if (statusCode == HttpStatus.SC_OK) {
+
 				byte[] data = new byte[2048];
-				data = EntityUtils.toByteArray((HttpEntity)httpResponse.getEntity());
+				data = EntityUtils.toByteArray((HttpEntity) httpResponse
+						.getEntity());
 				ByteArrayInputStream bais = new ByteArrayInputStream(data);
 				DataInputStream dis = new DataInputStream(bais);
 				response = new String(dis.readUTF());
 				Log.i("RETURN : ", response);
-				
-				//response = EntityUtils.toString(httpResponse.getEntity());
-				//System.out.println("ApacheHttpClient() return : " + response);
+
+				// response = EntityUtils.toString(httpResponse.getEntity());
+				// System.out.println("ApacheHttpClient() return : " +
+				// response);
+			} else {
+				response = "error:" + statusCode;
 			}
-			else
-			{
-				response = "�����룺"+statusCode;
-			}
-		} catch (Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return response;
-		
+
 	}
 
-	/**
-	 * ��Post��ʽ��������
-	 * @param url �����ַ
-	 * @param params ���� ��Post��ʽ������NameValuePair[]���д������
-	 * @return
-	 * @throws Exception
-	 */
-	public String httpPost(String url, List<NameValuePair> params) throws Exception
-	{
+	public String httpPost(String url, List<NameValuePair> params)
+			throws Exception {
 		String response = null;
 		HttpClient httpclient = new DefaultHttpClient();
-		//����HttpPost����
+
 		HttpPost httppost = new HttpPost(url);
-		try
-		{
-			//����httpPost�������
-			httppost.setEntity(new UrlEncodedFormEntity(params,HTTP.UTF_8));
-			//ʹ��execute��������HTTP Post���󣬲�����HttpResponse����
+		try {
+			httppost.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
 			HttpResponse httpResponse = httpclient.execute(httppost);
 			int statusCode = httpResponse.getStatusLine().getStatusCode();
-			if(statusCode==HttpStatus.SC_OK)
-			{
-				//��÷��ؽ��
-				response = EntityUtils.toString(httpResponse.getEntity());
+			if (statusCode == HttpStatus.SC_OK) {
+				response = EntityUtils.toString(httpResponse.getEntity(),
+						"UTF-8");
+			} else {
+				response = "error:" + statusCode;
 			}
-			else
-			{
-				response = "�����룺"+statusCode;
-			}
-		}catch (Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return response;

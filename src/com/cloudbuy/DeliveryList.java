@@ -37,7 +37,7 @@ public class DeliveryList extends Activity {
 		Intent intent = getIntent();
 		
 		//orderList = intent.getParcelableArrayListExtra("com.cloudbuy.domain.order");
-		userList = intent.getParcelableArrayListExtra("com.cloudbuy.domain.user");
+		userList = intent.getParcelableArrayListExtra("domain.user");
 		
 		List<HashMap<String, Object>> data = new ArrayList<HashMap<String, Object>>();
 		

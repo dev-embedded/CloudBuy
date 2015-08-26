@@ -14,7 +14,13 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
 
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.domain.User;
 import com.tools.ApacheHttpClient;
+import com.tools.JsonTools;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -30,6 +36,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class UserLogin extends Activity {
 	
@@ -47,14 +54,38 @@ public class UserLogin extends Activity {
 	private Handler handler = new Handler(){
 		public void handleMessage(Message msg){
 			super.handleMessage(msg);
-			userPasswordText.setText((CharSequence) msg.obj);
-			boolean result =  msg.getData().getBoolean("result");
+			userPasswordText.setText((CharSequence) msg.obj.toString());
+			String result =  msg.obj.toString();
 			System.out.println("result : " + result);
-			if(!result){
-				Intent intent = new Intent();
-				intent.setClass(UserLogin.this, DeliveryList.class);
-				startActivity(intent);
-				UserLogin.this.finish();
+			if(result != null){
+				ArrayList<User> userList = new ArrayList<User>();
+				try {
+					userList = JsonTools.Analysis(result);
+					if(userList.get(0).getUserNo() != -1){
+						//userPasswordText.setText(userList.get(0).getPostalCode().toString());
+
+						Intent intent = new Intent();
+						
+						intent.putParcelableArrayListExtra("domain.user", userList);
+						
+						intent.setClass(UserLogin.this, DeliveryList.class);
+						startActivity(intent);
+						UserLogin.this.finish();
+					}else{
+						Toast toast = Toast.makeText(getApplicationContext(), "Incorrect user or password !", Toast.LENGTH_SHORT);
+						toast.show();
+						
+						userPasswordText.setText(null);
+						userEmailText.setText(null);
+					}
+					
+					
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block  
+					e.printStackTrace();
+				}
+				
+				
 			}
 		}
 	};
