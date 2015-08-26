@@ -29,10 +29,15 @@ import android.net.http.AndroidHttpClient;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -47,6 +52,7 @@ public class UserLogin extends Activity {
 	private Button buttonCommit = null;
 	private Button buttonCancel = null;
 	private TextView mResult = null;
+	private CheckBox checkBox = null;
 	
 	private String baseURL = "http://192.168.208.1:8080/CloudBuyPractice/AppLogin";
 	
@@ -54,7 +60,7 @@ public class UserLogin extends Activity {
 	private Handler handler = new Handler(){
 		public void handleMessage(Message msg){
 			super.handleMessage(msg);
-			userPasswordText.setText((CharSequence) msg.obj.toString());
+			//userPasswordText.setText((CharSequence) msg.obj.toString());
 			String result =  msg.obj.toString();
 			System.out.println("result : " + result);
 			if(result != null){
@@ -103,6 +109,7 @@ public class UserLogin extends Activity {
 		userPasswordText = (EditText) findViewById(R.id.user_pass_value);
 		buttonCommit = (Button) findViewById(R.id.login_submit);
 		buttonCancel = (Button) findViewById(R.id.login_cancel);
+		checkBox = (CheckBox) findViewById(R.id.checkBox1);
 		
 		
 		buttonCommit.setOnClickListener(new Button.OnClickListener() {
@@ -156,6 +163,17 @@ public class UserLogin extends Activity {
 				startActivity(intent);
 
 				UserLogin.this.finish();
+			}
+		});
+		
+		checkBox.setOnCheckedChangeListener(new OnCheckedChangeListener(){
+			
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				if(isChecked){
+					userPasswordText.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+				}else{
+					userPasswordText.setTransformationMethod(PasswordTransformationMethod.getInstance());
+				}
 			}
 		});
 	}
