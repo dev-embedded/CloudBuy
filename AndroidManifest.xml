@@ -53,6 +53,9 @@
         <activity android:name=".UserLogin" ></activity>                  
         <activity android:name=".GoogleMapBBE" ></activity>
         <activity android:name=".DeliveryList" ></activity>
-
+        
+        <!-- Specifies a shared library that the application must be linked against. -->
+<!-- This element tells the system to include the library's code in the class loader for the package.  -->
+        <uses-library android:name="com.google.android.maps" />
     </application>
 </manifest>

@@ -5,7 +5,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import android.content.Intent;
@@ -17,7 +16,8 @@ import android.view.MenuItem;
 
 public class GoogleMapBBE extends FragmentActivity implements OnMapReadyCallback {
 	
-	private GoogleMap map = null;
+	private GoogleMap map_bbe = null;
+	static final LatLng home = new LatLng(45.4712270, -73.5641420);	
 	static final LatLng MTL = new LatLng(45.5086699, -73.5539925);
 
     @Override
@@ -27,14 +27,21 @@ public class GoogleMapBBE extends FragmentActivity implements OnMapReadyCallback
         setContentView(R.layout.google_map_bbe);
         
         MapFragment mapFragment = (MapFragment) getFragmentManager()
-        	    .findFragmentById(R.id.map);      
+        	    .findFragmentById(R.id.map_fragment);      
         mapFragment.getMapAsync(this);        
 
-        map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();        
-              
-        Marker mk= map.addMarker(new MarkerOptions().position(MTL).title("Montreal").snippet("BBE Team"));
+        // Assign mapFragment to map_bbe, so we can operate indirectly mapFragment through map_bbe. 
+        map_bbe = mapFragment.getMap();
+        //map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
+        map_bbe.addMarker(new MarkerOptions().position(MTL).title("Canada").snippet("BBE Team"));
+        map_bbe.moveCamera(CameraUpdateFactory.newLatLngZoom(MTL, 12));
         
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(MTL, 12));
+        MarkerOptions markerHome = new MarkerOptions();
+        markerHome.position(home);
+        markerHome.title("LINGdong's home");
+        markerHome.draggable(true);
+        map_bbe.addMarker(markerHome);
+        
     }     
     
     /*创建menu*/
