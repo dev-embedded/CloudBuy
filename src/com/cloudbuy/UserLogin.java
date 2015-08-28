@@ -18,6 +18,7 @@ import org.apache.http.protocol.HTTP;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.domain.Order;
 import com.domain.User;
 import com.tools.ApacheHttpClient;
 import com.tools.JsonTools;
@@ -54,7 +55,8 @@ public class UserLogin extends Activity {
 	private TextView mResult = null;
 	private CheckBox checkBox = null;
 	
-	private String baseURL = "http://192.168.208.1:8080/CloudBuyPractice/AppLogin";
+	private String baseURL0 = "http://192.168.208.1:8080/CloudBuyPractice/AppLogin";
+	private String baseURL1 = "http://192.168.208.1:8080/CloudBuyPractice/GetOrderListForDelivery";
 	
 	@SuppressLint("HandlerLeak")
 	private Handler handler = new Handler(){
@@ -63,12 +65,14 @@ public class UserLogin extends Activity {
 			//userPasswordText.setText((CharSequence) msg.obj.toString());
 			String result =  msg.obj.toString();
 			System.out.println("result : " + result);
+			/*
 			if(result != null){
 				ArrayList<User> userList = new ArrayList<User>();
 				try {
-					userList = JsonTools.Analysis(result);
+					userList = JsonTools.AnalysisUserList(result);
 					if(userList.get(0).getUserNo() != -1){
 						//userPasswordText.setText(userList.get(0).getPostalCode().toString());
+						//ArrayList<Order> orderList = JsonTools.AnalysisOrderList(result);
 
 						Intent intent = new Intent();
 						
@@ -92,6 +96,19 @@ public class UserLogin extends Activity {
 				}
 				
 				
+			}*/
+			try{
+				ArrayList<Order> orderList = JsonTools.AnalysisOrderList(result);
+				Intent intent = new Intent();
+				
+				intent.putParcelableArrayListExtra("domain.order", orderList);
+				
+				intent.setClass(UserLogin.this, DeliveryList.class);
+				startActivity(intent);
+				UserLogin.this.finish();
+			}catch (JSONException e) {
+				// TODO Auto-generated catch block  
+				e.printStackTrace();
 			}
 		}
 	};
@@ -119,12 +136,16 @@ public class UserLogin extends Activity {
 						String userType = userTypeNameText.getSelectedItem().toString();
 						String userEmail = userEmailText.getText().toString();
 						String userPassword = userPasswordText.getText().toString();
-						String res = null;
+						String res0 = null;
+						String res1 = null;
 						
-						List<NameValuePair> params = new ArrayList<NameValuePair>();
-						params.add(new BasicNameValuePair("flagUser", userType));
-						params.add(new BasicNameValuePair("email", userEmail));
-						params.add(new BasicNameValuePair("password", userPassword));
+						List<NameValuePair> params0 = new ArrayList<NameValuePair>();
+						params0.add(new BasicNameValuePair("flagUser", userType));
+						params0.add(new BasicNameValuePair("email", userEmail));
+						params0.add(new BasicNameValuePair("password", userPassword));
+						
+						List<NameValuePair> params1 = new ArrayList<NameValuePair>();
+						params1.add(new BasicNameValuePair("getType", "all"));
 						
 						System.out.println("userEmail : " + userEmail);
 						//userPasswordText.setText(userEmail);
@@ -133,17 +154,29 @@ public class UserLogin extends Activity {
 						
 						try
 						{
-							res = httpClient.httpPost(baseURL, params);
-							System.out.println("reponse for POST :" + res);
-							
-						} catch (Exception e)
-						{
+							res0 = httpClient.httpPost(baseURL0, params0);
+							System.out.println("reponse for POST :" + res0);
+							if(res0 != null){
+								ArrayList<User> userList = JsonTools.AnalysisUserList(res0);
+								if(userList.get(0).getUserNo() != -1){
+									res1 = httpClient.httpPost(baseURL1, params1);
+									System.out.println("reponse for POST :" + res1);
+									Message message = Message.obtain();
+									message.obj = res1;
+									handler.sendMessage(message);
+								}
+							}else{
+								Toast toast = Toast.makeText(getApplicationContext(), "Incorrect user or password !", Toast.LENGTH_SHORT);
+								toast.show();
+								
+								userPasswordText.setText(null);
+								userEmailText.setText(null);
+							}
+
+						} catch (Exception e){
 							e.printStackTrace();
 						}
 
-						Message message = Message.obtain();
-						message.obj = res;
-						handler.sendMessage(message);
 					}
 				}).start();	
 				

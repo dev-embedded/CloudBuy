@@ -33,24 +33,31 @@
         android:padding="10dp">
     
         <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="60dp"
         android:layout_height="wrap_content"
-        android:text="user no"
-        android:textSize="20sp" 
+        android:text="oderNo"
+        android:textSize="15sp" 
         android:textStyle="bold"/>
         
         <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:text="postal code"
-        android:textSize="20sp" 
+        android:text="barcode"
+        android:textSize="15sp" 
         android:textStyle="bold"/>
                 
         <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:text="address"
-        android:textSize="20sp" 
+        android:text="userNo"
+        android:textSize="15sp" 
+        android:textStyle="bold"/>
+        
+        <TextView
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:text="orderSum"
+        android:textSize="15sp" 
         android:textStyle="bold"/>
                
     </LinearLayout>

@@ -9,6 +9,7 @@ public class Order implements Parcelable {
 
 	private int orderNo;
 	private int userNo;
+	private String barcode;
 	private double orderSum;
 	private String flagPay;
 	private String flagDel;
@@ -21,9 +22,10 @@ public class Order implements Parcelable {
 	public Order() {
 	}
 
-	public Order(int orderNo, int userNo, double orderSum, String flagPay,
+	public Order(int orderNo, String barcode, int userNo, double orderSum, String flagPay,
 			String flagDel) {
 		this.orderNo = orderNo;
+		this.barcode = barcode;
 		this.userNo = userNo;
 		this.orderSum = orderSum;
 		this.flagPay = flagPay;
@@ -70,6 +72,14 @@ public class Order implements Parcelable {
 		this.flagDel = flagDel;
 	}
 
+	public String getBarcode() {
+		return barcode;
+	}
+
+	public void setBarcode(String barcode) {
+		this.barcode = barcode;
+	}
+
 	public ArrayList<OrderDetail> getOrderDetail() {
 		return orderDetail;
 	}
@@ -88,6 +98,7 @@ public class Order implements Parcelable {
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
 		dest.writeInt(orderNo);
+		dest.writeString(barcode);
 		dest.writeInt(userNo);
 		dest.writeDouble(orderSum);
 		dest.writeString(flagPay);
@@ -101,7 +112,7 @@ public class Order implements Parcelable {
 		@Override
 		public Order createFromParcel(Parcel source) {
 
-			return new Order(source.readInt(), source.readInt(),
+			return new Order(source.readInt(), source.readString(), source.readInt(),
 					source.readDouble(), source.readString(),
 					source.readString());
 

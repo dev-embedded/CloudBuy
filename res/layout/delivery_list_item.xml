@@ -6,7 +6,23 @@
     
     <TextView 
         android:id="@+id/listViewOrderNo"
-        android:layout_width="100dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:textSize="15sp"
+        />
+    
+    <TextView 
+        android:id="@+id/listViewBarcode"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:textSize="15sp"
+        />
+    
+    <TextView 
+        android:id="@+id/listViewUserNo"
+        android:layout_width="50dp"
         android:layout_height="50dp"
         android:gravity="center"
         android:textSize="15sp"
@@ -20,13 +36,4 @@
         android:textSize="15sp"
         />
     
-    <TextView 
-        android:id="@+id/listViewOrderAddress"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:gravity="center"
-        android:textSize="15sp"
-        />"
-    
-
 </LinearLayout>
