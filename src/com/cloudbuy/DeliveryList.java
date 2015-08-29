@@ -11,6 +11,8 @@ import org.json.JSONException;
 import com.domain.Order;
 import com.tools.ApacheHttpClient;
 import com.tools.JsonTools;
+import com.tools.ListViewAdapter;
+import com.tools.ViewHolder;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -39,6 +41,8 @@ public class DeliveryList extends Activity  {
 	
 	private ListView listview;
 	private String orderNoSelected;
+	private ListViewAdapter myAdapter;
+	private int checkNum;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -73,13 +77,24 @@ public class DeliveryList extends Activity  {
 				System.out.println("address:"+order.getAddress());
 			}
 			
+			//********************
+			//method 2
 			SimpleAdapter adapter = new SimpleAdapter(this, data,
 					R.layout.delivery_list_item, new String[] {"orderNo", "orderSum", "address",}, 
 						new int[] {R.id.listViewOrderNo,R.id.listViewOrderPay,R.id.listViewAddress });
-			listview.setAdapter(adapter);
+			//listview.setAdapter(adapter);
+
+			//********************
+			//method 1
 			//String[] strs = new String[] {"first", "second", "third", "fourth", "fifth"};
 			//listview.setAdapter(new ArrayAdapter<Order>(this,android.R.layout.simple_list_item_multiple_choice, orderList));
 			//listview.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+			
+			//********************
+			//method 3
+			myAdapter = new ListViewAdapter(orderList,this);
+			listview.setAdapter(myAdapter);
+			
 		} else {
 			Toast toast = Toast.makeText(getApplicationContext(),"order list is empty !",Toast.LENGTH_SHORT);
 			toast.show();
@@ -87,10 +102,21 @@ public class DeliveryList extends Activity  {
 		
 		listview.setOnItemClickListener(new OnItemClickListener(){   
 			@Override   
-	        public void onItemClick(AdapterView<?> parent, View view, int position,long id) {   
-	        	TextView orderSelected = (TextView)view.findViewById(R.id.listViewOrderNo);
-	            Toast.makeText(getApplicationContext(),    
-	                    "you selected No."+position+"Item，orderNo:："+orderSelected.getText(),Toast.LENGTH_SHORT).show();   
+	        public void onItemClick(AdapterView<?> parent, View view, int position,long id) {  
+				
+				ViewHolder holder = (ViewHolder) view.getTag();
+				holder.cbIsSelected.toggle();
+				
+				if (holder.cbIsSelected.isChecked() == true) {
+                    checkNum++;
+                } else {
+                    checkNum--;
+                }
+				
+	        	//TextView orderSelected = (TextView)view.findViewById(R.id.listViewOrderNo);
+	            //Toast.makeText(getApplicationContext(),"you selected No."+position+"Item，orderNo:："+orderSelected.getText(),Toast.LENGTH_SHORT).show(); 
+				Toast.makeText(getApplicationContext(),"you selected "+checkNum+"Items，",Toast.LENGTH_SHORT).show(); 
+				
 	        }   
 	           
 	    });   

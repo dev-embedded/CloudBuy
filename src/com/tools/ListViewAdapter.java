@@ -3,6 +3,9 @@ package com.tools;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.cloudbuy.R;
+import com.domain.Order;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +16,7 @@ import android.widget.TextView;
 
 public class ListViewAdapter extends BaseAdapter{
     // 填充数据的list
-    private ArrayList<String> list;
+    private ArrayList<Order> list;
     // 用来控制CheckBox的选中状况
     private static HashMap<Integer,Boolean> isSelected;
     // 上下文
@@ -22,7 +25,7 @@ public class ListViewAdapter extends BaseAdapter{
     private LayoutInflater inflater = null;
     
     // 构造器
-    public ListViewAdapter(ArrayList<String> list, Context context) {
+    public ListViewAdapter(ArrayList<Order> list, Context context) {
         this.context = context;
         this.list = list;
         inflater = LayoutInflater.from(context);
@@ -60,9 +63,12 @@ public class ListViewAdapter extends BaseAdapter{
             // 获得ViewHolder对象
             holder = new ViewHolder();
             // 导入布局并赋值给convertview
+            convertView = inflater.inflate(R.layout.delivery_list_item, parent, false);
             //convertView = inflater.inflate(R.layout.delivery_list_item, null);
-            //holder.tv = (TextView) convertView.findViewById(R.id.item_tv);
-            //holder.cb = (CheckBox) convertView.findViewById(R.id.item_cb);
+            holder.tvOrderNo = (TextView) convertView.findViewById(R.id.listViewOrderNo);
+            holder.tvOrderSum = (TextView) convertView.findViewById(R.id.listViewOrderPay);
+            holder.tvAddress = (TextView) convertView.findViewById(R.id.listViewAddress);
+            holder.cbIsSelected = (CheckBox) convertView.findViewById(R.id.listViewIsSelected);
             // 为view设置标签
             convertView.setTag(holder);
         } else {
@@ -72,9 +78,11 @@ public class ListViewAdapter extends BaseAdapter{
 
 
         // 设置list中TextView的显示
-        holder.tv.setText(list.get(position));
+        holder.tvOrderNo.setText(String.valueOf(list.get(position).getOrderNo()));
+        holder.tvOrderSum.setText("$"+String.valueOf(list.get(position).getOrderSum()));
+        holder.tvAddress.setText(list.get(position).getAddress());
         // 根据isSelected来设置checkbox的选中状况
-        //holder.cb.setChecked(getIsSelected().get(position));
+        holder.cbIsSelected.setChecked(getIsSelected().get(position));
         return convertView;
     }
 
@@ -88,7 +96,4 @@ public class ListViewAdapter extends BaseAdapter{
 
 }
 
-class ViewHolder {
-    public TextView tv;
-    public TextView cb;
-}
+
