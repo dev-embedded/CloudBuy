@@ -13,6 +13,8 @@ public class Order implements Parcelable {
 	private double orderSum;
 	private String flagPay;
 	private String flagDel;
+    private String address;
+    private String postalcode;
 	private ArrayList<OrderDetail> orderDetail;
 
 	public Order(int orderNo) {
@@ -22,12 +24,14 @@ public class Order implements Parcelable {
 	public Order() {
 	}
 
-	public Order(int orderNo, String barcode, int userNo, double orderSum, String flagPay,
+	public Order(int orderNo, String barcode, int userNo, double orderSum, String address, String postalcode, String flagPay,
 			String flagDel) {
 		this.orderNo = orderNo;
 		this.barcode = barcode;
 		this.userNo = userNo;
 		this.orderSum = orderSum;
+		this.address = address;
+		this.postalcode = postalcode;
 		this.flagPay = flagPay;
 		this.flagDel = flagDel;
 	}
@@ -79,6 +83,24 @@ public class Order implements Parcelable {
 	public void setBarcode(String barcode) {
 		this.barcode = barcode;
 	}
+	
+	
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getPostalcode() {
+		return postalcode;
+	}
+
+	public void setPostalcode(String postalcode) {
+		this.postalcode = postalcode;
+	}
 
 	public ArrayList<OrderDetail> getOrderDetail() {
 		return orderDetail;
@@ -101,6 +123,8 @@ public class Order implements Parcelable {
 		dest.writeString(barcode);
 		dest.writeInt(userNo);
 		dest.writeDouble(orderSum);
+		dest.writeString(address);
+		dest.writeString(postalcode);
 		dest.writeString(flagPay);
 		dest.writeString(flagDel);
 		//dest.writeBinderArray(orderDetail);
@@ -113,7 +137,7 @@ public class Order implements Parcelable {
 		public Order createFromParcel(Parcel source) {
 
 			return new Order(source.readInt(), source.readString(), source.readInt(),
-					source.readDouble(), source.readString(),
+					source.readDouble(), source.readString(), source.readString(), source.readString(),
 					source.readString());
 
 		}

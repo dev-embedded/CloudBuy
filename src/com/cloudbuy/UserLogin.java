@@ -98,14 +98,24 @@ public class UserLogin extends Activity {
 				
 			}*/
 			try{
-				ArrayList<Order> orderList = JsonTools.AnalysisOrderList(result);
+				
+				if(result != "-1"){
 				Intent intent = new Intent();
+				ArrayList<Order> orderList = JsonTools.AnalysisOrderList(result);
+				System.out.println("UserLogin.java:address:" + orderList.get(0).getAddress());
 				
 				intent.putParcelableArrayListExtra("domain.order", orderList);
 				
 				intent.setClass(UserLogin.this, DeliveryList.class);
 				startActivity(intent);
 				UserLogin.this.finish();
+				}else{
+					Toast toast = Toast.makeText(getApplicationContext(), "Incorrect user or password !", Toast.LENGTH_SHORT);
+					toast.show();
+					
+					userPasswordText.setText(null);
+					userEmailText.setText(null);					
+				}
 			}catch (JSONException e) {
 				// TODO Auto-generated catch block  
 				e.printStackTrace();
@@ -164,13 +174,11 @@ public class UserLogin extends Activity {
 									Message message = Message.obtain();
 									message.obj = res1;
 									handler.sendMessage(message);
+								}else{
+									Message message = Message.obtain();
+									message.obj = "-1";
+									handler.sendMessage(message);
 								}
-							}else{
-								Toast toast = Toast.makeText(getApplicationContext(), "Incorrect user or password !", Toast.LENGTH_SHORT);
-								toast.show();
-								
-								userPasswordText.setText(null);
-								userEmailText.setText(null);
 							}
 
 						} catch (Exception e){

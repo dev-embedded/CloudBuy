@@ -39,10 +39,11 @@ public class JsonTools {
 			JSONObject jsonObj = jsonArray.getJSONObject(i);
 			Order orderTemp = new Order();
 			orderTemp.setOrderNo(Integer.parseInt(jsonObj.getString("orderNo")));
-			orderTemp.setBarcode(jsonObj.getString("barcode"));
-			orderTemp.setUserNo(Integer.parseInt(jsonObj.getString("userNo")));
 			orderTemp.setOrderSum(Double.parseDouble(jsonObj.getString("orderSum")));
+			orderTemp.setAddress(jsonObj.getString("address"));
+			orderTemp.setPostalcode(jsonObj.getString("postalcode"));
 			list.add(orderTemp);
+			System.out.println("JsonTools.java:address:" + orderTemp.getAddress());
 		}
 		return list;
 	}
