@@ -2,6 +2,7 @@ package com.domain;
 
 import java.util.ArrayList;
 
+import android.os.IBinder;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -9,6 +10,7 @@ public class Order implements Parcelable {
 
 	private int orderNo;
 	private int userNo;
+	private String firstName;
 	private String barcode;
 	private double orderSum;
 	private String flagPay;
@@ -24,7 +26,7 @@ public class Order implements Parcelable {
 	public Order() {
 	}
 
-	public Order(int orderNo, String barcode, int userNo, double orderSum, String address, String postalcode, String flagPay,
+	public Order(int orderNo, String barcode, int userNo, String firstName, double orderSum, String address, String postalcode, String flagPay,
 			String flagDel) {
 		this.orderNo = orderNo;
 		this.barcode = barcode;
@@ -84,7 +86,14 @@ public class Order implements Parcelable {
 		this.barcode = barcode;
 	}
 	
-	
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
 
 	public String getAddress() {
 		return address;
@@ -122,12 +131,15 @@ public class Order implements Parcelable {
 		dest.writeInt(orderNo);
 		dest.writeString(barcode);
 		dest.writeInt(userNo);
+		dest.writeString(firstName);
 		dest.writeDouble(orderSum);
 		dest.writeString(address);
 		dest.writeString(postalcode);
 		dest.writeString(flagPay);
 		dest.writeString(flagDel);
-		//dest.writeBinderArray(orderDetail);
+		
+		
+		//dest.writeBinderArray((IBinder[]) orderDetail.toArray());
 
 	}
 
@@ -136,7 +148,7 @@ public class Order implements Parcelable {
 		@Override
 		public Order createFromParcel(Parcel source) {
 
-			return new Order(source.readInt(), source.readString(), source.readInt(),
+			return new Order(source.readInt(), source.readString(), source.readInt(), source.readString(),
 					source.readDouble(), source.readString(), source.readString(), source.readString(),
 					source.readString());
 

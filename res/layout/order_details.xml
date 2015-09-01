@@ -9,7 +9,7 @@
         android:layout_height="380dp"
         android:columnCount="1" >
 
-	  <TableRow
+        <TableRow
             android:id="@+id/rowOrderNo"
             android:layout_column="0"
             android:layout_gravity="left|top"
@@ -36,7 +36,6 @@
                 android:ems="10"
                 android:inputType="numberDecimal"
                 android:text="Sum" />
-
         </TableRow>
 
         <TableRow
@@ -58,15 +57,14 @@
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:text="Client Name" />
-            
+
             <EditText
                 android:id="@+id/editText19"
                 android:layout_width="90dp"
                 android:layout_height="wrap_content"
                 android:text="Zip" />
-                   
         </TableRow>
-        
+
         <TableRow
             android:id="@+id/rowAdd"
             android:layout_column="0"
@@ -85,7 +83,6 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPostalAddress"
                 android:text="Client Add" />
-
         </TableRow>
 
         <TableRow
@@ -106,7 +103,6 @@
                 android:ems="10"
                 android:inputType="date"
                 android:text="ETD date" />
-
         </TableRow>
 
         <TableRow
@@ -127,7 +123,6 @@
                 android:ems="10"
                 android:inputType="time"
                 android:text="ETA time" />
-
         </TableRow>
 
         <TableRow
@@ -145,7 +140,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Next" />
-            
+
             <Button
                 android:id="@+id/button_return_order_list"
                 android:layout_width="wrap_content"
@@ -163,10 +158,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Go!" />
-
         </TableRow>
 
-	   <TableRow
+        <TableRow
             android:id="@+id/rowATD"
             android:layout_gravity="fill_horizontal" >
 
@@ -184,9 +178,8 @@
                 android:ems="10"
                 android:inputType="date"
                 android:text="ATD date " />
-
         </TableRow>
-        
+
         <TableRow
             android:id="@+id/rowATA"
             android:layout_gravity="fill_horizontal" >
@@ -205,9 +198,8 @@
                 android:ems="10"
                 android:inputType="date"
                 android:text="ATA Time " />
-
         </TableRow>
-       
+
         <TableRow
             android:id="@+id/listName"
             android:layout_gravity="fill_horizontal" >
@@ -225,62 +217,27 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:text="Item Name" />
-            
+
             <TextView
                 android:id="@+id/text17"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:text="Uni" />
-            
+
             <TextView
                 android:id="@+id/text20"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:text="Qty" />
-
         </TableRow>
-
-        <TableLayout android:layout_gravity="fill_horizontal" >
-
-            <TableRow
-                android:id="@+id/tableRow10"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp" >
-            
-            	<EditText
-                	android:id="@+id/editText21"
-                	android:layout_width="60dp"
-                	android:layout_height="wrap_content"
-                	android:ems="10"
-                	android:text="No-l" />
-
-            	<EditText
-                	android:id="@+id/editText22"
-                	android:layout_width="140dp"
-                	android:layout_height="wrap_content"
-                	android:ems="10"
-                	android:text="Item-l" />
-            
-            	<EditText
-                	android:id="@+id/editText23"
-                	android:layout_width="60dp"
-                	android:layout_height="wrap_content"
-                	android:ems="10"
-                	android:text="Un-l" />
-            
-            	<EditText
-                	android:id="@+id/editText24"
-                	android:layout_width="60dp"
-                	android:layout_height="wrap_content"
-                	android:ems="10"
-                	android:text="Q-l" />
-                               
-            </TableRow>
-            
-        </TableLayout>
-   
     </GridLayout>
+
+    <ListView
+        android:id="@+id/listViewDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp" >
+    </ListView>
 
 </LinearLayout>
