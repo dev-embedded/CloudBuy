@@ -23,13 +23,9 @@ public class Activity_temp extends Activity {
 		setContentView(R.layout.activity_activity_temp);
 
 		Button buttonLogin = (Button) findViewById(R.id.button_login);
-
 		Button buttonOrderList = (Button) findViewById(R.id.button_order_list);
-
 		Button buttonBarcode = (Button) findViewById(R.id.button_barcode);
-
 		Button buttonOrderDetails = (Button) findViewById(R.id.button_order_details);
-
 		Button buttonDeliveryMap = (Button) findViewById(R.id.button_delivery_map);
 		
 		//create two users : user1 and user2
@@ -46,16 +42,14 @@ public class Activity_temp extends Activity {
 		user2.setPostalCode("H4G 1j9");
 		
 		userList.add(user1);
-		userList.add(user2);
-		
-		
+		userList.add(user2);	
 		
 		//create 2 order lists : orderList1 and orderList2
 		orderList = new ArrayList<Order>();
 		
 		//begin of the first order and order detail 
 		
-		Order order1 = new Order();
+		final Order order1 = new Order();
 		
 		order1.setOrderNo(1);
 		order1.setUserNo(1);
@@ -119,7 +113,7 @@ public class Activity_temp extends Activity {
 		buttonLogin.setOnClickListener(new Button.OnClickListener() {
 			public void onClick(View v) {
 				Intent intent = new Intent();
-
+												
 				intent.setClass(Activity_temp.this, UserLogin.class);
 
 				startActivity(intent);
@@ -198,5 +192,16 @@ public class Activity_temp extends Activity {
 			}
 		}
 		);
+
+	}
+
+	protected Object getORderSum() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	protected Object getOrderNo() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

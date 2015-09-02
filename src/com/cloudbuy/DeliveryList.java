@@ -1,6 +1,7 @@
 package com.cloudbuy;
 
 import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.List;
 
@@ -15,7 +16,6 @@ import com.tools.ApacheHttpClient;
 import com.tools.JsonTools;
 import com.tools.ListViewAdapter;
 import com.tools.ViewHolder;
-
 import android.R.integer;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -90,7 +90,18 @@ public class DeliveryList extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.delivery_list);
-
+		
+		/*
+		final ArrayAdapter<Order> aa;
+		aa =  new ArrayAdapter<Order>(this, 
+				R.layout.activity_activity_temp, getData());
+		ListView listView;
+		listView = (ListView) findViewById(R.id.listview); 
+		listView.setAdapter(aa);
+		
+		Bundle bundle = this.getIntent().getExtras();
+		*/
+			
 		Button buttonLogout = (Button) findViewById(R.id.button_logout);
 		Button buttonSelect = (Button) findViewById(R.id.button_select);
 		Button buttonGetBarcode = (Button) findViewById(R.id.button_get_barcode);
@@ -233,3 +244,4 @@ public class DeliveryList extends Activity {
 	}
 
 }
+
