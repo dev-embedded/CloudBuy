@@ -10,31 +10,19 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 
 import com.domain.Order;
-import com.domain.OrderDetail;
-import com.domain.User;
 import com.tools.ApacheHttpClient;
 import com.tools.JsonTools;
 import com.tools.ListViewAdapter;
 import com.tools.ViewHolder;
-import android.R.integer;
-import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.text.method.HideReturnsTransformationMethod;
-import android.text.method.PasswordTransformationMethod;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -43,7 +31,6 @@ import android.widget.Toast;
 public class DeliveryList extends Activity {
 
 	private ListView listview;
-	private String orderNoSelected;
 	private ListViewAdapter myAdapter;
 	private int checkNum;
 	private ArrayList<String> checkItem;
@@ -59,17 +46,22 @@ public class DeliveryList extends Activity {
 			try {
 				if (result != "-1") {
 					Intent intent = new Intent();
-					ArrayList<Order> orderDetailList = JsonTools.AnalysisOrderDetailList(result);
+					ArrayList<Order> orderDetailList = JsonTools
+							.AnalysisOrderDetailList(result);
 					// System.out.println("UserLogin.java:address:" +
 					// orderList.get(0).getAddress());
-					System.out.println("--------DeliveryList.java:orderDetailList.size(): "+orderDetailList.get(0).getOrderDetail().size());
-					//intent.putParcelableArrayListExtra("domain.orderDetail",orderDetailList);
-					
-					Bundle bundle=new Bundle(); 
+					System.out
+							.println("--------DeliveryList.java:orderDetailList.size(): "
+									+ orderDetailList.get(0).getOrderDetail()
+											.size());
+					// intent.putParcelableArrayListExtra("domain.orderDetail",orderDetailList);
+
+					Bundle bundle = new Bundle();
 					bundle.putString("domain.orderDetail", result);
 					intent.putExtras(bundle);
 
-					intent.setClass(DeliveryList.this,OrderDetailsActivity.class);
+					intent.setClass(DeliveryList.this,
+							OrderDetailsActivity.class);
 					startActivity(intent);
 					DeliveryList.this.finish();
 				} else {
@@ -90,18 +82,7 @@ public class DeliveryList extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.delivery_list);
-		
-		/*
-		final ArrayAdapter<Order> aa;
-		aa =  new ArrayAdapter<Order>(this, 
-				R.layout.activity_activity_temp, getData());
-		ListView listView;
-		listView = (ListView) findViewById(R.id.listview); 
-		listView.setAdapter(aa);
-		
-		Bundle bundle = this.getIntent().getExtras();
-		*/
-			
+
 		Button buttonLogout = (Button) findViewById(R.id.button_logout);
 		Button buttonSelect = (Button) findViewById(R.id.button_select);
 		Button buttonGetBarcode = (Button) findViewById(R.id.button_get_barcode);
@@ -208,35 +189,43 @@ public class DeliveryList extends Activity {
 
 		buttonSelect.setOnClickListener(new Button.OnClickListener() {
 			public void onClick(View v) {
-				new Thread(new Runnable() {
-					public void run() {
-						String res = null;
-						List<NameValuePair> params = new ArrayList<NameValuePair>();
-						params.add(new BasicNameValuePair("orderCount", String
-								.valueOf(checkItem.size())));
-						for (int i = 0; i < checkItem.size(); i++) {
-							params.add(new BasicNameValuePair(
-									String.valueOf(i), checkItem.get(i)
-											.toString()));
-						}
-
-						ApacheHttpClient httpClient = new ApacheHttpClient();
-
-						try {
-							res = httpClient.httpPost(baseURL, params);
-							System.out.println("reponse for POST :" + res);
-							if (res != null) {
-								Message message = Message.obtain();
-								message.obj = res;
-								handler.sendMessage(message);
+				if (checkNum != 0) {
+					new Thread(new Runnable() {
+						public void run() {
+							String res = null;
+							List<NameValuePair> params = new ArrayList<NameValuePair>();
+							params.add(new BasicNameValuePair("orderCount",
+									String.valueOf(checkItem.size())));
+							for (int i = 0; i < checkItem.size(); i++) {
+								params.add(new BasicNameValuePair(String
+										.valueOf(i), checkItem.get(i)
+										.toString()));
 							}
 
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
+							ApacheHttpClient httpClient = new ApacheHttpClient();
 
-					}
-				}).start();
+							try {
+								res = httpClient.httpPost(baseURL, params);
+								System.out.println("reponse for POST :" + res);
+								if (res != null) {
+									Message message = Message.obtain();
+									message.obj = res;
+									handler.sendMessage(message);
+								}
+
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+
+						}
+					}).start();
+				} else {
+					Toast toast = Toast
+							.makeText(getApplicationContext(),
+									"selected order list is null !",
+									Toast.LENGTH_SHORT);
+					toast.show();
+				}
 
 			}
 		});
@@ -244,4 +233,3 @@ public class DeliveryList extends Activity {
 	}
 
 }
-
