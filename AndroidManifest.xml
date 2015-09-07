@@ -39,7 +39,7 @@
         <!-- Add the API key to your application -->            
         <meta-data 
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyCQrJX6vc4EDf-AxI-QymCCDrGLtAI0AbQ" />    
+            android:value="AIzaSyAU7sY1IOMW1P7eDj0EvWMC8iAF5mF_AA8" />    
         
         <activity
             android:name=".Activity_temp"
