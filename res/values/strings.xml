@@ -9,5 +9,7 @@
         <item>adminitrator</item>
         <item>deliveryman</item>
     </string-array>
+    <string name="google_map_button">search</string>
+    <string name="myLocation_button">My Location</string>
 
 </resources>

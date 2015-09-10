@@ -3,19 +3,23 @@ package com.cloudbuy;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 
 import junit.framework.TestResult;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.domain.User;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
@@ -26,6 +30,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.maps.GeoPoint;
 import com.google.gson.Gson;
+import com.tools.ApacheHttpClient;
+import com.tools.JsonTools;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -42,6 +48,9 @@ import android.os.Message;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class GoogleMapActivity extends Activity {
@@ -50,7 +59,11 @@ public class GoogleMapActivity extends Activity {
 	private GoogleMap mMap;
 	private TextView txtOutput;
 	private Marker markerMe;
-	List<Address> address;
+	private List<Address> address;
+	private String url;
+	private EditText textAddress = null;
+	private Button buttonSearch = null;
+	private Button buttonMyLocation = null;
 	
 	//GPS
 	private LocationManager locationMgr;
@@ -109,8 +122,12 @@ public class GoogleMapActivity extends Activity {
         System.out.println("Hello Google Map");
         setContentView(R.layout.google_map);
         
+        textAddress = (EditText) findViewById(R.id.google_map_address);
+        buttonSearch = (Button) findViewById(R.id.google_map_button);
+    	buttonMyLocation = (Button) findViewById(R.id.myLocation_button);
+        
         //location by latitude and altitude
-        mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.mapView)).getMap();
+        mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map_fragment)).getMap();
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         mMap.setMyLocationEnabled(true);
         
@@ -133,7 +150,8 @@ public class GoogleMapActivity extends Activity {
         
         new Thread(new Runnable(){
 			public void run(){
-				String url = "http://maps.googleapis.com/maps/api/geocode/json?address=3205+rue+de+verdun,+verdun,qc&sensor=false";
+				url = "http://maps.googleapis.com/maps/api/geocode/json?address=3205+rue+de+verdun,+verdun,qc&sensor=false";
+				
 				//String url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961352&sensor=false";
         
         HttpClient httpClient = new DefaultHttpClient();
@@ -160,7 +178,41 @@ public class GoogleMapActivity extends Activity {
 		}).start();	
         
         
-        
+        buttonSearch.setOnClickListener(new Button.OnClickListener() {
+			public void onClick(View v) {
+				new Thread(new Runnable(){
+					public void run(){
+						url = "http://maps.googleapis.com/maps/api/geocode/json?address=";
+						String strAddress = textAddress.getText().toString();
+						url = url + strAddress.replace(" ", "+") + "&sensor=false";
+						
+						
+						HttpClient httpClient = new DefaultHttpClient();
+				        String responseData = "";
+				        try{
+				        	HttpResponse response = httpClient.execute(new HttpGet(url));
+				        	HttpEntity entity = response.getEntity(); 
+				        	BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(entity.getContent()));
+				        	String line = "";
+				        	while ((line = bufferedReader.readLine()) != null){
+				        		responseData = responseData + line;
+				        	}
+				        	Message message = Message.obtain();
+							message.obj = responseData;
+							handler.sendMessage(message);
+				        }
+				        catch (Exception e){
+				        	e.printStackTrace();
+				        }
+				        Gson gson = new Gson();
+				        TestResult testResult = gson.fromJson(responseData, TestResult.class);
+				        System.out.println("-----testResult:-----"+testResult);
+							}
+						}).start();	
+				
+				
+			}
+		});
         
         
     }

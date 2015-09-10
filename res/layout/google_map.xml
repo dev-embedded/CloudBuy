@@ -1,20 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<fragment 
-   xmlns:android="http://schemas.android.com/apk/res/android"
-   xmlns:map="http://schemas.android.com/apk/res-auto"
-   android:id="@+id/mapView"
-   android:layout_width="match_parent"
-   android:layout_height="match_parent"
-   class="com.google.android.gms.maps.MapFragment"
-   map:cameraBearing="45"
-   map:cameraTargetLat="45.5086699"
-   map:cameraTargetLng="-73.5539925"
-   map:cameraTilt="0"
-   map:cameraZoom="12"
-   map:uiCompass="true"
-   map:mapType="normal"
-   map:uiRotateGestures="true"
-   map:uiScrollGestures="true"
-   map:uiTiltGestures="true"
-   map:uiZoomControls="false"
-   map:uiZoomGestures="true" />
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent" 
+	android:orientation="vertical" >
+	
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content" 
+		android:orientation="horizontal" >
+
+		<EditText
+			android:id="@+id/google_map_address"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:hint="Enter street address"
+			android:layout_weight="2" >
+			<requestFocus />
+		</EditText>
+	
+		<Button
+			android:id="@+id/google_map_button"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/google_map_button" />
+		<Button
+			android:id="@+id/myLocation_button"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/myLocation_button" />
+	</LinearLayout>
+
+	<fragment 
+		android:id="@+id/map_fragment"
+   		android:layout_width="match_parent"
+   		android:layout_height="match_parent"
+   		class="com.google.android.gms.maps.MapFragment" />
+
+</LinearLayout>
