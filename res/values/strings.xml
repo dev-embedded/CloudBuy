@@ -2,14 +2,14 @@
 <resources>
 
     <string name="app_name">CloudBuy</string>
-    <string name="hello_head">This is a layout list for CloudBuy App</string>
-    <string name="action_settings">Settings</string>
+    <string name="hello_head">This is a layout list for CloudBuy App.</string>
     
     <string-array name="user_type_name">
         <item>client</item>
         <item>adminitrator</item>
         <item>deliveryman</item>
     </string-array>
-    <string name="google_map_button1">Exit map</string>
+    <string name="google_map_button">Search</string>
+    <string name="myLocation_button">GPS</string>
 
 </resources>
