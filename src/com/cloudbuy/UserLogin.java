@@ -131,7 +131,7 @@ public class UserLogin extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.user_login);
 		
-		userTypeNameText = (Spinner) findViewById(R.id.user_type_name);
+		//userTypeNameText = (Spinner) findViewById(R.id.user_type_name);
 		userEmailText = (EditText) findViewById(R.id.user_email_value);
 		userPasswordText = (EditText) findViewById(R.id.user_pass_value);
 		buttonCommit = (Button) findViewById(R.id.login_submit);
@@ -143,7 +143,7 @@ public class UserLogin extends Activity {
 			public void onClick(View v) {
 				new Thread(new Runnable(){
 					public void run(){
-						String userType = userTypeNameText.getSelectedItem().toString();
+						String userType = "2";
 						String userEmail = userEmailText.getText().toString();
 						String userPassword = userPasswordText.getText().toString();
 						String res0 = null;

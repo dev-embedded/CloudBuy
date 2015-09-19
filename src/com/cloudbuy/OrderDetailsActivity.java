@@ -198,6 +198,10 @@ public class OrderDetailsActivity extends Activity {
 		buttonOrderMap.setOnClickListener(new Button.OnClickListener() {
 			public void onClick(View v) {
 				Intent intent = new Intent();
+				Bundle bundle = new Bundle();
+				bundle.putString("user.address", etAddress.getText().toString().trim());
+				intent.putExtras(bundle);
+				
 				intent.setClass(OrderDetailsActivity.this, GoogleMapActivity.class);
 				startActivity(intent);
 				OrderDetailsActivity.this.finish();

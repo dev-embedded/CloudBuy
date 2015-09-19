@@ -1,87 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/background_login"
+    android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/user_type"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="30dp"
-        android:text="user type :"
-        android:textStyle="bold" />
+        android:padding="15dip"
+        android:layout_margin="15dip"
+        android:background="@drawable/background_login_div" >
 
-    <Spinner
-        android:id="@+id/user_type_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/user_type"
-        android:layout_toRightOf="@id/user_type"
-        android:entries="@array/user_type_name" />
+        <TextView
+            android:id="@+id/user_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="5dp"
+            android:text="Username"
+            android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/user_email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/user_type"
-        android:layout_marginLeft="20dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="40dp"
-        android:text="user eamil         :"
-        android:textStyle="bold" />
+        <EditText
+            android:id="@+id/user_email_value"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/user_email"
+            android:hint="E-mail Address"
+            android:singleLine="true"
+            android:inputType="text" />
 
-    <EditText
-        android:id="@+id/user_email_value"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
-        android:layout_toRightOf="@id/user_email"
-        android:inputType="text" />
+        <TextView
+            android:id="@+id/user_pass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/user_email_value"
+            android:layout_marginTop="3dp"
+            android:text="Password"
+            android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/user_pass"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/user_email"
-        android:layout_marginLeft="20dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="20dp"
-        android:text="user password :"
-        android:textStyle="bold" />
+        <EditText
+            android:id="@+id/user_pass_value"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/user_pass"
+            android:password="true"
+            android:singleLine="true"
+            android:inputType="textPassword" />
 
-    <EditText
-        android:id="@+id/user_pass_value"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="110dp"
-        android:layout_toRightOf="@id/user_pass"
-        android:inputType="textPassword" />
-    <CheckBox
-        android:id="@+id/checkBox1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="display password"
-        android:layout_marginTop="140dp"
-        android:layout_marginLeft="130dp" />
+        <CheckBox
+            android:id="@+id/checkBox1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/user_pass_value"
+            android:text="display password" />
 
-    <Button
-        android:id="@+id/login_submit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/user_pass"
-        android:layout_marginLeft="60dp"
-        android:layout_marginTop="40dp"
-        android:text="submit" />
+        <Button
+            android:id="@+id/login_submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/checkBox1"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="3dp"
+            android:text="login" 
+            android:textStyle="italic" />
 
-    <Button
-        android:id="@+id/login_cancel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/user_pass"
-        android:layout_marginTop="40dp"
-        android:layout_toRightOf="@id/login_submit"
-        android:text="cancel" />
+        <Button
+            android:id="@+id/login_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/checkBox1"
+            android:layout_marginTop="3dp"
+            android:layout_toRightOf="@id/login_submit"
+            android:textStyle="italic"
+            android:text="sign up" />
+    </RelativeLayout>
 
-</RelativeLayout>
+</LinearLayout>

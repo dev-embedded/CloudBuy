@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import junit.framework.TestResult;
@@ -25,6 +26,7 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -37,6 +39,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -45,6 +48,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -61,9 +65,11 @@ public class GoogleMapActivity extends Activity {
 	private Marker markerMe;
 	private List<Address> address;
 	private String url;
-	private EditText textAddress = null;
+	private EditText textAddressEnd = null;
+	private EditText textAddressBegin = null;
 	private Button buttonSearch = null;
 	private Button buttonMyLocation = null;
+	private Button buttonNavigation = null;
 	
 	//GPS
 	private LocationManager locationMgr;
@@ -76,43 +82,67 @@ public class GoogleMapActivity extends Activity {
 			String result =  msg.obj.toString();
 			System.out.println("result : " + result);
 			
-			
-			try {
-				JSONArray jsonArray = new org.json.JSONObject(result).getJSONArray("results");
+			switch(msg.what){
+				case 1:
+					try {
+						JSONArray jsonArray = new org.json.JSONObject(result).getJSONArray("results");
+						
+						Object jsonObj = jsonArray.getJSONObject(0);
+						
+						JSONObject geometry =  ((JSONObject) jsonObj).getJSONObject("geometry");
+						System.out.println("geometry : " + geometry);
+						
+						JSONObject location = geometry.getJSONObject("location");
+						
+						String strLat = location.getString("lat");
+						String strLng = location.getString("lng");
+						
+						//double lat = 21.946567;
+				        //double lng = 120.798713;
+						double lat = Double.parseDouble(strLat);
+						double lng = Double.parseDouble(strLng);
+				        //float speed = location.getSpeed();
+				        
+				        MarkerOptions markerOpt = new MarkerOptions();
+				        markerOpt.position(new LatLng(lat, lng));
+				        markerOpt.title("I'm here !");
+				        markerOpt.draggable(false);
+				        markerOpt.anchor(0.5f, 0.5f);
+				        markerOpt.icon(BitmapDescriptorFactory.fromResource(android.R.drawable.ic_menu_mylocation));
+				        mMap.addMarker(markerOpt);
+				        
+				        CameraPosition camPosition = new CameraPosition.Builder().target(new LatLng(lat, lng)).zoom(16).build();
+				        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(camPosition));
+						break;
+						
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				case 2:
+					List<LatLng> points = getPoints(result);
+					
+					for(int i=0;i<points.size();i++){
+						System.out.println("point["+i+"]-->"+points.get(i));
+					}
+
+					try {
+						// Draw route info
+						//mMap.addMarker(new MarkerOptions().position(points.get(0)).title("I'm here").visible(true));
+						PolylineOptions lineOptions = new PolylineOptions();
+						lineOptions.width(5);
+						lineOptions.color(Color.BLUE);
+						for (int i = 0; i < points.size() ; i++) {
+							lineOptions.add(points.get(i));
+						}
+						mMap.addPolyline(lineOptions);
+						break;
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 				
-				Object jsonObj = jsonArray.getJSONObject(0);
-				
-				JSONObject geometry =  ((JSONObject) jsonObj).getJSONObject("geometry");
-				System.out.println("geometry : " + geometry);
-				
-				JSONObject location = geometry.getJSONObject("location");
-				
-				String strLat = location.getString("lat");
-				String strLng = location.getString("lng");
-				
-				//double lat = 21.946567;
-		        //double lng = 120.798713;
-				double lat = Double.parseDouble(strLat);
-				double lng = Double.parseDouble(strLng);
-		        //float speed = location.getSpeed();
-		        
-		        MarkerOptions markerOpt = new MarkerOptions();
-		        markerOpt.position(new LatLng(lat, lng));
-		        markerOpt.title("I'm here !");
-		        markerOpt.draggable(false);
-		        markerOpt.anchor(0.5f, 0.5f);
-		        markerOpt.icon(BitmapDescriptorFactory.fromResource(android.R.drawable.ic_menu_mylocation));
-		        mMap.addMarker(markerOpt);
-		        
-		        CameraPosition camPosition = new CameraPosition.Builder().target(new LatLng(lat, lng)).zoom(16).build();
-		        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(camPosition));
-				
-				
-				
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
+			
 			
 		}
 	};
@@ -122,9 +152,19 @@ public class GoogleMapActivity extends Activity {
         System.out.println("Hello Google Map");
         setContentView(R.layout.google_map);
         
-        textAddress = (EditText) findViewById(R.id.google_map_address);
+        textAddressEnd = (EditText) findViewById(R.id.google_map_address_end);
+        textAddressBegin = (EditText) findViewById(R.id.google_map_address_begin);
         buttonSearch = (Button) findViewById(R.id.google_map_button);
     	buttonMyLocation = (Button) findViewById(R.id.myLocation_button);
+    	buttonNavigation = (Button) findViewById(R.id.navigation_button);
+    	
+    	textAddressBegin.setText("3205 rue de verdun, verdun, qc");
+    	
+    	//get user address for destination taget.
+    	Intent intent = getIntent();
+		Bundle bundle=getIntent().getExtras();  
+	    String userAddressForDestination=bundle.getString("user.address");
+	    textAddressEnd.setText(userAddressForDestination);
         
         //location by latitude and altitude
         mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map_fragment)).getMap();
@@ -183,7 +223,7 @@ public class GoogleMapActivity extends Activity {
 				new Thread(new Runnable(){
 					public void run(){
 						url = "http://maps.googleapis.com/maps/api/geocode/json?address=";
-						String strAddress = textAddress.getText().toString();
+						String strAddress = textAddressEnd.getText().toString();
 						url = url + strAddress.replace(" ", "+") + "&sensor=false";
 						
 						
@@ -198,6 +238,7 @@ public class GoogleMapActivity extends Activity {
 				        		responseData = responseData + line;
 				        	}
 				        	Message message = Message.obtain();
+				        	message.what = 1;
 							message.obj = responseData;
 							handler.sendMessage(message);
 				        }
@@ -214,8 +255,40 @@ public class GoogleMapActivity extends Activity {
 			}
 		});
         
-        
+        buttonNavigation.setOnClickListener(new Button.OnClickListener() {
+			public void onClick(View v) {
+				new Thread(new Runnable() {
+					public void run() {
+						url = "http://maps.google.com/maps/api/directions/xml?origin=45.469727,-73.569809&destination=45.466876,-73.6234319&sensor=false&mode=driving";
+
+						HttpClient httpClient = new DefaultHttpClient();
+						String responseData = "";
+						try {
+							HttpResponse response = httpClient
+									.execute(new HttpGet(url));
+							HttpEntity entity = response.getEntity();
+							BufferedReader bufferedReader = new BufferedReader(
+									new InputStreamReader(entity.getContent()));
+							String line = "";
+							while ((line = bufferedReader.readLine()) != null) {
+								responseData = responseData + line;
+							}
+							Message message = Message.obtain();
+							message.what = 2;
+							message.obj = responseData;
+							handler.sendMessage(message);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				}).start();
+				
+				
+			}
+		});
     }
+    
+    
     
     public class MyLocationListener implements LocationListener{
     	public void onLocationChanged(Location loc){
@@ -278,7 +351,74 @@ public class GoogleMapActivity extends Activity {
 		return true;
 	}    
     
-    
+	private List<LatLng> getPoints(String strResult){
+		List<LatLng> points=new ArrayList<LatLng>(); 
+		 if (-1 == strResult.indexOf("<status>OK</status>")){  
+		            return null;
+		        } 
+		        
+		        int pos = strResult.indexOf("<overview_polyline>");  
+		        pos = strResult.indexOf("<points>", pos + 1);  
+		        int pos2 = strResult.indexOf("</points>", pos);  
+		        strResult = strResult.substring(pos + 8, pos2);  
+		          
+		        List<GeoPoint> geoPoints = decodePoly(strResult); 
+		     //   Log.i("tag", "geoPoints:"+geoPoints.toString());
+		        LatLng ll;
+		        Log.i("tag", "geopoints.size:"+geoPoints.size());
+		        for(Iterator<GeoPoint> gpit=geoPoints.iterator();gpit.hasNext();){
+		               GeoPoint gp=gpit.next();
+		            double latitude=gp.getLatitudeE6();
+		            latitude=latitude/1000000;
+		     //       Log.i("tag", "latitude:"+latitude);
+		            double longitude=gp.getLongitudeE6();
+		            longitude=longitude/1000000;
+		    //        Log.i("tag", "longitude:"+longitude);
+		            ll=new LatLng(latitude, longitude);
+		            points.add(ll);
+		        }
+		   //    Log.i("tag", "points:"+points.toString());
+
+		        return points;
+	}
+	
+	/** 
+     * Parses the returned lines of code of XML overview_polyline 
+     *  
+     * @return List<GeoPoint>
+     */  
+    private List<GeoPoint> decodePoly(String encoded) {  
+          
+        List<GeoPoint> poly = new ArrayList<GeoPoint>();  
+        int index = 0, len = encoded.length();  
+        int lat = 0, lng = 0;  
+  
+        while (index < len) {  
+            int b, shift = 0, result = 0;  
+            do {  
+                b = encoded.charAt(index++) - 63;  
+                result |= (b & 0x1f) << shift;  
+                shift += 5;  
+            } while (b >= 0x20);  
+            int dlat = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));  
+            lat += dlat;  
+  
+            shift = 0;  
+            result = 0;  
+            do {  
+                b = encoded.charAt(index++) - 63;  
+                result |= (b & 0x1f) << shift;  
+                shift += 5;  
+            } while (b >= 0x20);  
+            int dlng = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));  
+            lng += dlng;  
+  
+            GeoPoint p = new GeoPoint((int) ((lat / 1E5) * 1E6),(int) ((lng / 1E5) * 1E6));  
+            poly.add(p);  
+        }  
+  
+        return poly;  
+    }
 }
 
 
