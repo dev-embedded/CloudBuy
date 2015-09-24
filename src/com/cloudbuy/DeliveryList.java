@@ -34,8 +34,10 @@ public class DeliveryList extends Activity {
 	private ListViewAdapter myAdapter;
 	private int checkNum;
 	private ArrayList<String> checkItem;
-	private String baseURL = "http://192.168.208.1:8080/CloudBuyPractice/GetOrderDetailForDelivery";
+	//private String baseURL = "http://192.168.208.1:8080/CloudBuyPractice/GetOrderDetailForDelivery";
+	private String baseURL = "http://198.100.155.40:8080/CloudBuyPractice/GetOrderDetailForDelivery";
 
+	
 	private Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
 			super.handleMessage(msg);

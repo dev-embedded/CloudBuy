@@ -55,8 +55,12 @@ public class UserLogin extends Activity {
 	private TextView mResult = null;
 	private CheckBox checkBox = null;
 	
-	private String baseURL0 = "http://192.168.208.1:8080/CloudBuyPractice/AppLogin";
-	private String baseURL1 = "http://192.168.208.1:8080/CloudBuyPractice/GetOrderListForDelivery";
+	//private String baseURL0 = "http://192.168.208.1:8080/CloudBuyPractice/AppLogin";
+	//private String baseURL1 = "http://192.168.208.1:8080/CloudBuyPractice/GetOrderListForDelivery";
+	
+	private String baseURL0 = "http://198.100.155.40:8080/CloudBuyPractice/AppLogin";
+	private String baseURL1 = "http://198.100.155.40:8080/CloudBuyPractice/GetOrderListForDelivery";
+	
 	
 	@SuppressLint("HandlerLeak")
 	private Handler handler = new Handler(){

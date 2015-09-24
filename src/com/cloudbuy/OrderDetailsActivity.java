@@ -79,8 +79,8 @@ public class OrderDetailsActivity extends Activity {
 			System.out.println("--------OrderDetailActivity.java:orderDetailList.size(): "+orderList.get(0).getOrderDetail().size());
 			System.out.println("--------OrderDetailActivity:getFirstName: "+orderList.get(0).getFirstName());
 			etOrderNo.setText(String.valueOf(orderList.get(0).getOrderNo()));
-			etOrderSum.setText(String.valueOf(orderList.get(0).getOrderSum()));
-			etUserName.setText("$"+orderList.get(0).getFirstName());
+			etOrderSum.setText(String.valueOf("$"+orderList.get(0).getOrderSum()));
+			etUserName.setText(orderList.get(0).getFirstName());
 			etPostalcode.setText(orderList.get(0).getPostalcode());
 			etAddress.setText(orderList.get(0).getAddress());
 			
