@@ -47,6 +47,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 import android.view.Menu;
@@ -56,6 +57,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class GoogleMapActivity extends Activity {
 	
@@ -75,12 +77,52 @@ public class GoogleMapActivity extends Activity {
 	private LocationManager locationMgr;
 	private String provider;
 	
+	private Double startLat;
+	private Double startLng;
+	private Double endLat;
+	private Double endLng;
+	
+	
+	public Double getStartLat() {
+		return startLat;
+	}
+
+	public void setStartLat(Double startLat) {
+		this.startLat = startLat;
+	}
+
+	public Double getStartLng() {
+		return startLng;
+	}
+
+	public void setStartLng(Double startLng) {
+		this.startLng = startLng;
+	}
+
+	public Double getEndLat() {
+		return endLat;
+	}
+
+	public void setEndLat(Double endLat) {
+		this.endLat = endLat;
+	}
+
+	public Double getEndLng() {
+		return endLng;
+	}
+
+	public void setEndLng(Double endLng) {
+		this.endLng = endLng;
+	}
+
 	@SuppressLint("HandlerLeak")
 	private Handler handler = new Handler(){
 		public void handleMessage(Message msg){
 			super.handleMessage(msg);
 			String result =  msg.obj.toString();
 			System.out.println("result : " + result);
+			Toast toast = Toast.makeText(getApplicationContext(), "msg.what="+msg.what, Toast.LENGTH_SHORT);
+			toast.show();
 			
 			switch(msg.what){
 				case 1:
@@ -140,6 +182,61 @@ public class GoogleMapActivity extends Activity {
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
+				case 3:
+					try {
+						JSONArray jsonArray = new org.json.JSONObject(result).getJSONArray("results");
+						
+						Object jsonObj = jsonArray.getJSONObject(0);
+						
+						JSONObject geometry =  ((JSONObject) jsonObj).getJSONObject("geometry");
+						System.out.println("geometry : " + geometry);
+						
+						JSONObject location = geometry.getJSONObject("location");
+						
+						String strLat = location.getString("lat");
+						String strLng = location.getString("lng");
+						
+						
+						//double lat = 21.946567;
+				        //double lng = 120.798713;
+						double lat = Double.parseDouble(strLat);
+						double lng = Double.parseDouble(strLng);
+				        setStartLat(lat);
+				        setStartLng(lng);
+				        System.out.println("startAddress:<---->"+getStartLat()+","+getStartLng());
+						break;
+						
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				case 4:
+					try {
+						JSONArray jsonArray = new org.json.JSONObject(result).getJSONArray("results");
+						
+						Object jsonObj = jsonArray.getJSONObject(0);
+						
+						JSONObject geometry =  ((JSONObject) jsonObj).getJSONObject("geometry");
+						System.out.println("geometry : " + geometry);
+						
+						JSONObject location = geometry.getJSONObject("location");
+						
+						String strLat = location.getString("lat");
+						String strLng = location.getString("lng");
+						
+						//double lat = 21.946567;
+				        //double lng = 120.798713;
+						double lat = Double.parseDouble(strLat);
+						double lng = Double.parseDouble(strLng);
+				        setEndLat(lat);
+				        setEndLng(lng);
+				        System.out.println("endAddress:<---->"+getEndLat()+","+getEndLng());
+						break;
+						
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				
 			}
 			
@@ -186,13 +283,19 @@ public class GoogleMapActivity extends Activity {
         //System.out.println("-----location : latitude:" + lat + ", longitude : "+ lng);
         
         /*Analyst address */
+        String startAddTemp = textAddressBegin.getText().toString();
+		String endAddTemp = textAddressEnd.getText().toString();
+		getLatLng(startAddTemp,3);
+		System.out.println("startAddress:---->"+getStartLat()+","+getStartLng());
+		getLatLng(endAddTemp,4);
+		System.out.println("endAddress:---->"+getEndLat()+","+getEndLng());
         
         
         new Thread(new Runnable(){
 			public void run(){
 				url = "http://maps.googleapis.com/maps/api/geocode/json?address=3205+rue+de+verdun,+verdun,qc&sensor=false";
 				
-				//String url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961352&sensor=false";
+				//url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961352&sensor=false";
         
         HttpClient httpClient = new DefaultHttpClient();
         String responseData = "";
@@ -205,6 +308,7 @@ public class GoogleMapActivity extends Activity {
         		responseData = responseData + line;
         	}
         	Message message = Message.obtain();
+        	message.what = 1;
 			message.obj = responseData;
 			handler.sendMessage(message);
         }
@@ -225,7 +329,6 @@ public class GoogleMapActivity extends Activity {
 						url = "http://maps.googleapis.com/maps/api/geocode/json?address=";
 						String strAddress = textAddressEnd.getText().toString();
 						url = url + strAddress.replace(" ", "+") + "&sensor=false";
-						
 						
 						HttpClient httpClient = new DefaultHttpClient();
 				        String responseData = "";
@@ -256,10 +359,13 @@ public class GoogleMapActivity extends Activity {
 		});
         
         buttonNavigation.setOnClickListener(new Button.OnClickListener() {
+        	
 			public void onClick(View v) {
 				new Thread(new Runnable() {
 					public void run() {
-						url = "http://maps.google.com/maps/api/directions/xml?origin=45.469727,-73.569809&destination=45.466876,-73.6234319&sensor=false&mode=driving";
+						//url = "http://maps.google.com/maps/api/directions/xml?origin=45.469727,-73.569809&destination=45.466876,-73.6234319&sensor=false&mode=driving";
+						url = "http://maps.google.com/maps/api/directions/xml?origin="+getStartLat()+","+getStartLng()+"&destination="+getEndLat()+","+getEndLng()+"&sensor=false&mode=driving";
+						System.out.println("url for navigation : --->"+url);
 
 						HttpClient httpClient = new DefaultHttpClient();
 						String responseData = "";
@@ -277,6 +383,7 @@ public class GoogleMapActivity extends Activity {
 							message.what = 2;
 							message.obj = responseData;
 							handler.sendMessage(message);
+							
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
@@ -288,6 +395,38 @@ public class GoogleMapActivity extends Activity {
 		});
     }
     
+    private void getLatLng(final String strAdd, final int flag){
+    	ArrayList<Double> latLng = new ArrayList<Double>();
+    	new Thread(new Runnable(){
+			public void run(){
+				url = "http://maps.googleapis.com/maps/api/geocode/json?address=";
+				//String strAddress = textAddressEnd.getText().toString();
+				url = url + strAdd.replace(" ", "+") + "&sensor=false";
+				
+				HttpClient httpClient = new DefaultHttpClient();
+		        String responseData = "";
+		        try{
+		        	HttpResponse response = httpClient.execute(new HttpGet(url));
+		        	HttpEntity entity = response.getEntity(); 
+		        	BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(entity.getContent()));
+		        	String line = "";
+		        	while ((line = bufferedReader.readLine()) != null){
+		        		responseData = responseData + line;
+		        	}
+		        	Message message = Message.obtain();
+		        	message.what = flag;
+					message.obj = responseData;
+					handler.sendMessage(message);
+		        }
+		        catch (Exception e){
+		        	e.printStackTrace();
+		        }
+		        Gson gson = new Gson();
+		        TestResult testResult = gson.fromJson(responseData, TestResult.class);
+		        //System.out.println("-----testResult:-----"+testResult);
+					}
+				}).start();	
+    }
     
     
     public class MyLocationListener implements LocationListener{
