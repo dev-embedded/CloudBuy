@@ -178,6 +178,9 @@ public class GoogleMapActivity extends Activity {
 							lineOptions.add(points.get(i));
 						}
 						mMap.addPolyline(lineOptions);
+						
+						CameraPosition camPosition = new CameraPosition.Builder().target(new LatLng(getStartLat(), getStartLng())).zoom(13).build();
+				        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(camPosition));
 						break;
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -255,7 +258,7 @@ public class GoogleMapActivity extends Activity {
     	buttonMyLocation = (Button) findViewById(R.id.myLocation_button);
     	buttonNavigation = (Button) findViewById(R.id.navigation_button);
     	
-    	textAddressBegin.setText("3205 rue de verdun, verdun, qc");
+    	textAddressBegin.setText("300 rue bridge, montreal, qc");
     	
     	//get user address for destination taget.
     	Intent intent = getIntent();
@@ -293,7 +296,7 @@ public class GoogleMapActivity extends Activity {
         
         new Thread(new Runnable(){
 			public void run(){
-				url = "http://maps.googleapis.com/maps/api/geocode/json?address=3205+rue+de+verdun,+verdun,qc&sensor=false";
+				url = "http://maps.googleapis.com/maps/api/geocode/json?address=300+rue+bridge,+montreal,+qc&sensor=false";
 				
 				//url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961352&sensor=false";
         

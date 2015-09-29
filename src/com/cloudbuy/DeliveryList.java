@@ -85,7 +85,6 @@ public class DeliveryList extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.delivery_list);
 
-		Button buttonLogout = (Button) findViewById(R.id.button_logout);
 		Button buttonSelect = (Button) findViewById(R.id.button_select);
 		Button buttonGetBarcode = (Button) findViewById(R.id.button_get_barcode);
 		Button buttonReturn = (Button) findViewById(R.id.button_return);

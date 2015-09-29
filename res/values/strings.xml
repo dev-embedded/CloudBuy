@@ -1,4 +1,10 @@
 <resources>
+    
+    <drawable name="darkgray">#808080</drawable>
+    <drawable name="white">#FFFFFF</drawable>
+    <drawable name="blue">#0000FF</drawable>
+    <drawable name="lightred">#90FF0000</drawable>
+    <drawable name="lightgray">#90505050</drawable>
 
     <string name="app_name">CloudBuy</string>
     <string name="hello_head">This is a layout list for CloudBuy App.</string>
